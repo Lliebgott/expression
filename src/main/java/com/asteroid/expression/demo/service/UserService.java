@@ -1,5 +1,6 @@
 package com.asteroid.expression.demo.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.asteroid.expression.demo.model.User;
 
 import java.util.List;
@@ -10,7 +11,9 @@ import java.util.List;
  */
 public interface UserService {
 
-    Boolean addUser(User user);
+    JSONObject addUser(User user);
+
+    JSONObject checkExist(Integer id, String username);
 
     List<User> queryUser();
 

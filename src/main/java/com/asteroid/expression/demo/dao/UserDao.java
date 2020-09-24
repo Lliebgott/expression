@@ -1,7 +1,7 @@
 package com.asteroid.expression.demo.dao;
 
 import com.asteroid.expression.demo.model.User;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -9,10 +9,12 @@ import java.util.List;
  * @author: YuSai
  * @date: 2020-09-23 15:29
  */
-@Repository("UserDao")
+@Mapper
 public interface UserDao {
 
-    Boolean addUser(User user);
+    int addUser(User user);
+
+    int checkExist(User user);
 
     List<User> queryUser();
 
