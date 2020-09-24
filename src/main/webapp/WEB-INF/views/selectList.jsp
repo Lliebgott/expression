@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Title</title>
-    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
     <script>
         function check() {
             $.ajax({

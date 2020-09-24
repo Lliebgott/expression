@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="${BASE_PATH }/static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="${BASE_PATH }/static/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
     <link href="${BASE_PATH }/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="${BASE_PATH }/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
