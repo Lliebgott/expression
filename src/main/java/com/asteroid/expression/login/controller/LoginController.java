@@ -40,6 +40,11 @@ public class LoginController {
         return loginService.queryMenu();
     }
 
+    @RequestMapping("/home")
+    public String home() {
+        return "main/home";
+    }
+
     @RequestMapping("/main")
     public String main() {
         return "main/main";

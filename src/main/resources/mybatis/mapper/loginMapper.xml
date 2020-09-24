@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.asteroid.expression.demo.dao.UserDao">
+<mapper namespace="com.asteroid.expression.login.dao.LoginDao">
 
 	<select id="queryMenu" resultType="com.asteroid.expression.login.model.Menu">
 		select * from menu

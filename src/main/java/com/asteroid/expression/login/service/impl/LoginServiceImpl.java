@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginService {
             }
             menuList = NodeUtil.getChildNodes(new ArrayList<>(treeMap.values()),0l);
         }
-        result.put("data", menuList);
+        result.put("data", menus);
         result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
         return result;
     }
