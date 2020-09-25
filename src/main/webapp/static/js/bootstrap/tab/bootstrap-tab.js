@@ -173,7 +173,8 @@
             //div-content
             var div_content_panel = $(this.template.div_content_panel.format(obj.id));
             this.$element.find(".tab-content").append(div_content_panel);
-            $("#" + obj.id).html("<iframe style='width: 100%;height:88%;boxder:none;' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='yes' allowtransparency='yes' src='/"+obj.url+"' ></iframe>");
+            $("#" + obj.id).html("<iframe style='width: 100%;height:88%;boxder:none;' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='yes' allowtransparency='yes' src='"+obj.url+"' ></iframe>");
+            debugger
             this.stateObj[obj.id] = true;
 
             if(obj.closeable){

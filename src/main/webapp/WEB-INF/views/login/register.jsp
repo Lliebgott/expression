@@ -10,16 +10,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Expression Register</title>
-    <script src="../../../static/js/jquery-3.3.1.min.js"></script>
-    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../../../static/js/bootstrap.min.js"></script>
-    <script src="../../../static/js/bootstrap/alert/alert.js"></script>
-    <link href="../../../static/css/bootstrapValidator.css" rel="stylesheet" />
-    <script src="../../../static/js/validator/bootstrapValidator.min.js"></script>
-    <script src="../../../static/js/distpicker/distpicker.data.js"></script>
-    <script src="../../../static/js/distpicker/distpicker.js"></script>
 </head>
 <body>
+<jsp:include page="../include/include.jsp"></jsp:include>
 <div class="container">
     <div class="row">
         <!--放在一个大的col-md-12里-->
@@ -38,7 +31,7 @@
                 <!--panel-body-->
                 <div class="panel-body">
                     <!--把其他的组件放到panel-body里面-->
-                    <form id="registerForm"  role="form" method="post" action="user/addUser">
+                    <form id="registerForm" role="form" method="post" action="user/addUser">
                         <div class="form-group" >
                             <label for="name">名字:</label>
                             <input type="text" class="form-control" name="name" id="name"  placeholder="请输入名字" />
@@ -74,6 +67,21 @@
                         <div class="form-group" style="margin-top: 10px;">
                             <label for="address">街道地址:</label>
                             <input type="text" class="form-control" name="address" id="address"  placeholder="请输入街道地址" />
+                        </div>
+                        <div class="form-group">
+                            <label for="sex">性别:</label>
+                            <select name="sex" id="sex" class="form-control">
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthday">出生日期:</label>
+                            <input type="text" class="form-control" name="birthday" id="birthday"  placeholder="请输入出生日期" />
+                        </div>
+                        <div class="form-group">
+                            <label for="label">心情:</label>
+                            <textarea type="text" class="form-control" name="label" id="label"  placeholder="请输入心情"></textarea>
                         </div>
                         <div align="center">
                             <button type="submit" name="submit" class="btn btn-primary block full-width m-b">注&nbsp;&nbsp;册</button>

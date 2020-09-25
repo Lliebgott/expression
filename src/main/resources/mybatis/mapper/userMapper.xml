@@ -3,8 +3,10 @@
 <mapper namespace="com.asteroid.expression.demo.dao.UserDao">
 
 	<insert id="addUser" parameterType="com.asteroid.expression.demo.model.User" useGeneratedKeys="true" keyProperty="id">
-		insert into user (name, username, password, mobile, email, province, city, district, address, status, last_login_time)
-		values (#{name}, #{username}, #{password}, #{mobile}, #{email}, #{province}, #{city}, #{district}, #{address}, #{status}, #{lastLoginTime})
+		insert into user (name, username, password, mobile, email, province, city, district, address, status, last_login_time,
+		sex, label, image_name, image),
+		values (#{name}, #{username}, #{password}, #{mobile}, #{email}, #{province}, #{city}, #{district}, #{address},
+		#{status}, #{last_login_time}, #{sex}, #{label}, #{image_name}, #{image})
 	</insert>
 
 	<select id="queryUser" resultType="com.asteroid.expression.demo.model.User">

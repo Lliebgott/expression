@@ -31,6 +31,7 @@
 <script src="../../../static/js/bootstrap/alert/alert.js"></script>
 <script src="../../../static/js/bootstrap/table/bootstrap-table.js"></script>
 <script src="../../../static/js/bootstrap/date/bootstrap-datetimepicker.js"></script>
+<script src="../../../static/js/bootstrap/validator/bootstrapValidator.js"></script>
 <script src="../../../static/js/bootstrap/validator/bootstrapValidator.min.js"></script>
 <script src="../../../static/js/bootstrap/upload/fileinput.min.js"></script>
 <script src="../../../static/js/bootstrap/upload/plugins/sortable.js"></script>

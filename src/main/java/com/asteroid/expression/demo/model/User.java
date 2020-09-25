@@ -19,7 +19,12 @@ public class User {
     private String district;
     private String address;
     private Integer status;
-    private Date lastLoginTime;
+    private String sex;
+//    private Date birthday;
+    private String label;
+    private String image_name;
+    private String image;
+    private Date last_login_time;
 
     public Integer getId() {
         return id;
@@ -109,30 +114,51 @@ public class User {
         this.status = status;
     }
 
-    public Date getLastLoginTime() {
-        return lastLoginTime;
+//    public Date getBirthday() {
+//        return birthday;
+//    }
+//
+//    public void setBirthday(Date birthday) {
+//        this.birthday = birthday;
+//    }
+
+    public String getSex() {
+        return sex;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", email='" + email + '\'' +
-                ", province='" + province + '\'' +
-                ", city='" + city + '\'' +
-                ", district='" + district + '\'' +
-                ", address='" + address + '\'' +
-                ", status=" + status +
-                ", lastLoginTime=" + lastLoginTime +
-                '}';
+    public String getLabel() {
+        return label;
     }
 
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getImage_name() {
+        return image_name;
+    }
+
+    public void setImage_name(String image_name) {
+        this.image_name = image_name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Date getLast_login_time() {
+        return last_login_time;
+    }
+
+    public void setLast_login_time(Date last_login_time) {
+        this.last_login_time = last_login_time;
+    }
 }

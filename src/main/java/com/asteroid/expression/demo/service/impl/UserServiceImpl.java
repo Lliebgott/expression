@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         result.put("success", false);
         user.setAddress(user.getProvince() + user.getCity() + user.getDistrict() + user.getAddress());
         user.setStatus(StatusEnum.EFFECTIVE.getId());
-        user.setLastLoginTime(new Date());
+        user.setLast_login_time(new Date());
         int n = userDao.addUser(user);
         if (n > 0) {
             result.put("success", true);

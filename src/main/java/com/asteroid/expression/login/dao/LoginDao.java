@@ -1,6 +1,8 @@
 package com.asteroid.expression.login.dao;
 
 import com.asteroid.expression.demo.model.User;
+import com.asteroid.expression.demo.model.UserGroup;
+import com.asteroid.expression.demo.model.UserUser;
 import com.asteroid.expression.login.model.Menu;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,5 +16,11 @@ import java.util.List;
 public interface LoginDao {
 
     List<Menu> queryMenu(User user);
+
+    List<UserGroup> queryGroupByUserId(int id);
+
+    List<User> queryGroupUser(UserUser userUser);
+
+    List<User> checkLogin(User user);
 
 }

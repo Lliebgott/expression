@@ -4,33 +4,44 @@ function register() {
 }
 
 $(function () {
-    // 给登录按钮绑定点击事件
-    $('#login-btn').click(function () {
-        // 定义一个是否允许提交的标志位
-        var flag = true;
-        // 1. 找到登录框中所有的input框，判断值是否为空
-        $('form input').each(function () {
-            var value = $(this).val();
-            if (value.length===0){
-                // 2. 为空就显示提示信息
-                // 2.1 给下面的span标签设置文本提示信息
-                var errMsg = $(this).prev().text() + '不能为空';
-                $(this).next().text(errMsg);
-                // 2.2 给父标签设置has-error的样式
-                $(this).parent().addClass('has-error');
-                // 2.3 阻止表单提交
-                flag = false;
-                return false;
+    $('#loginForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            username: {
+                message: '账号验证失败',
+                validators: {
+                    notEmpty: {
+                        message: '账号不能为空'
+                    }
+                }
+            },
+            password: {
+                message:'密码无效',
+                validators: {
+                    notEmpty: {
+                        message: '密码不能为空'
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function(e) {//点击提交之后
+        e.preventDefault();
+        var $form = $(e.target);
+        // var bv = $form.data('bootstrapValidator');
+        // Use Ajax to submit form data 提交至form标签中的action，result自定义
+        $.post($form.attr('action'), $form.serialize(), function(result) {
+            debugger
+            if (result.success) {
+                $(window.location).attr('href', '/index');
+            } else {
+                $('#warnSpan').empty().html("用户名或密码不正确")
             }
         });
-        return flag;
     });
 
-    // 给input框绑定focus事件
-    $('form input').focus(function () {
-        // 1. 去掉当前input框后面的span标签的文本
-        $(this).next().text('');
-        // 2. 去掉父标签的has-error样式
-        $(this).parent().removeClass('has-error');
-    })
 });

@@ -5,5 +5,29 @@
 	<select id="queryMenu" resultType="com.asteroid.expression.login.model.Menu">
 		select * from menu
 	</select>
-	
+
+
+	<select id="checkLogin" resultType="com.asteroid.expression.demo.model.User">
+		select * from user where username = #{username} and password = #{password}
+	</select>
+
+	<select id="queryGroupByUserId" parameterType="int" resultType="com.asteroid.expression.demo.model.UserGroup">
+		SELECT
+			a.id,
+			a.group_name
+		FROM
+			user_group a
+		WHERE
+			EXISTS ( SELECT 1 FROM user_user b WHERE b.user_id = #{id} AND b.group_id = a.id )
+	</select>
+
+	<select id="queryGroupUser" parameterType="int" resultType="com.asteroid.expression.demo.model.User">
+		SELECT
+			a.*
+		FROM
+			user a
+		WHERE
+			EXISTS ( SELECT 1 FROM user_user b WHERE b.user_id = 9 AND b.group_id = 1 AND b.friend_id = a.id )
+	</select>
+
 </mapper>
