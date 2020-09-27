@@ -1,6 +1,7 @@
 package com.asteroid.expression.user.dao;
 
 import com.asteroid.expression.user.model.Content;
+import com.asteroid.expression.user.model.ContentFile;
 import com.asteroid.expression.user.model.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,5 +19,7 @@ public interface UserDao {
     int checkExist(User user);
 
     int publish(Content content);
+
+    int saveContextFile(ContentFile contentFile);
 
 }

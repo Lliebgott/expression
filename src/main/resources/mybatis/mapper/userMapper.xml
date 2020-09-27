@@ -24,5 +24,10 @@
 		insert into t_content (user_id, content, p_date, status)
 		values (#{user_id}, #{content}, #{p_date}, #{status})
 	</insert>
+
+	<insert id="saveContextFile" parameterType="com.asteroid.expression.user.model.ContentFile" useGeneratedKeys="true" keyProperty="id">
+		insert into t_content_file (content_id, file_name, file_path)
+		values (#{content_id}, #{file_name}, #{file_path})
+	</insert>
 	
 </mapper>

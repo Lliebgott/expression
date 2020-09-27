@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.asteroid.expression.common.eenum.StatusEnum;
 import com.asteroid.expression.user.dao.UserDao;
 import com.asteroid.expression.user.model.Content;
+import com.asteroid.expression.user.model.ContentFile;
 import com.asteroid.expression.user.model.User;
 import com.asteroid.expression.user.service.UserService;
 import org.springframework.stereotype.Service;
@@ -62,15 +63,15 @@ public class UserServiceImpl implements UserService {
 
         JSONObject result = new JSONObject();
         result.put("success", false);
-        Content c = new Content();
+        Content model = new Content();
         // 设置user_id
-        c.setUser_id(9);
-        c.setContent(content);
-        c.setP_date(new Date());
-        c.setStatus(StatusEnum.EFFECTIVE.getId());
-        int n = userDao.publish(c);
+        model.setUser_id(9);
+        model.setContent(content);
+        model.setP_date(new Date());
+        model.setStatus(StatusEnum.EFFECTIVE.getId());
+        int n = userDao.publish(model);
         for (MultipartFile file: files) {
-            upload(file, dirPath, file.getOriginalFilename());
+            upload(model.getId(), file, file.getOriginalFilename());
         }
         if (n > 0) {
             result.put("success", true);
@@ -78,21 +79,25 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    public String upload(MultipartFile file, String path, String fileName) {
-        // 生成新的文件名
-        String realPath = path + "/" + UUID.randomUUID().toString().replace("-", "")+fileName.substring(fileName.lastIndexOf("."));
-        File dest = new File(realPath);
-        // 判断文件父目录是否存在
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdir();
-        }
-        // 保存文件
+    public void upload(Integer contentId, MultipartFile file, String fileName) {
         try {
+            // 生成新的文件名
+            String realPath = dirPath + "\\" + UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf("."));
+            File dest = new File(realPath);
+            // 判断文件父目录是否存在
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdir();
+            }
+            // 保存文件
             file.transferTo(dest);
+            ContentFile contentFile = new ContentFile();
+            contentFile.setContent_id(contentId);
+            contentFile.setFile_name(fileName);
+            contentFile.setFile_path(realPath);
+            userDao.saveContextFile(contentFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return dest.getName();
     }
 
 }
