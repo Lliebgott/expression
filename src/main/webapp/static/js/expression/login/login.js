@@ -39,7 +39,7 @@ $(function () {
             if (result.success) {
                 $(window.location).attr('href', '/index');
             } else {
-                $('#warnSpan').empty().html("用户名或密码不正确")
+                $('#warnSpan').empty().html(result.msg)
             }
         });
     });

@@ -14,7 +14,6 @@
 <body >
 <jsp:include page="../include/include.jsp"></jsp:include>
 <div id="wrapper">
-
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->

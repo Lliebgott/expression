@@ -1,4 +1,4 @@
-package com.asteroid.expression.demo.model;
+package com.asteroid.expression.user.model;
 
 import java.util.Date;
 

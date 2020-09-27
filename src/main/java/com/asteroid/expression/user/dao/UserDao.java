@@ -1,6 +1,7 @@
-package com.asteroid.expression.demo.dao;
+package com.asteroid.expression.user.dao;
 
-import com.asteroid.expression.demo.model.User;
+import com.asteroid.expression.user.model.Content;
+import com.asteroid.expression.user.model.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public interface UserDao {
 
     int checkExist(User user);
 
-    List<User> queryUser();
+    int publish(Content content);
 
 }

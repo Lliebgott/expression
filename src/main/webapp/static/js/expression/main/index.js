@@ -32,7 +32,12 @@ $(function () {
         },
         callback : {
             onClick: function (e, treeId, treeNode) {
-                $("#tabContainer").data("tabs").addTab({id: treeId, text: treeNode.name, closeable: true, url: "/login"});
+                if (treeNode.level != 0) {
+                    $("#tabContainer").data("tabs").addTab({id: treeNode.id, text: treeNode.name, closeable: true, url: "/login"});
+                } else {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    treeObj.expandNode(treeNode, !treeNode.open, true, true);
+                }
             }
         }
     };

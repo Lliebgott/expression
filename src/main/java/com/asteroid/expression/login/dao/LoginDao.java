@@ -1,8 +1,8 @@
 package com.asteroid.expression.login.dao;
 
-import com.asteroid.expression.demo.model.User;
-import com.asteroid.expression.demo.model.UserGroup;
-import com.asteroid.expression.demo.model.UserUser;
+import com.asteroid.expression.user.model.Friend;
+import com.asteroid.expression.user.model.User;
+import com.asteroid.expression.user.model.Group;
 import com.asteroid.expression.login.model.Menu;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,11 +15,9 @@ import java.util.List;
 @Mapper
 public interface LoginDao {
 
-    List<Menu> queryMenu(User user);
+    List<Group> queryGroupByUserId(int id);
 
-    List<UserGroup> queryGroupByUserId(int id);
-
-    List<User> queryGroupUser(UserUser userUser);
+    List<User> queryGroupUser(Friend friend);
 
     List<User> checkLogin(User user);
 

@@ -1,10 +1,10 @@
-package com.asteroid.expression.demo.model;
+package com.asteroid.expression.user.model;
 
 /**
  * @author: YuSai
  * @date: 2020-09-25 13:54
  */
-public class UserGroup {
+public class Group {
 
 
     private Integer id;

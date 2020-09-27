@@ -1,10 +1,10 @@
-package com.asteroid.expression.demo.model;
+package com.asteroid.expression.user.model;
 
 /**
  * @author: YuSai
  * @date: 2020-09-25 13:54
  */
-public class UserUser {
+public class Friend {
 
     private Integer id;
 

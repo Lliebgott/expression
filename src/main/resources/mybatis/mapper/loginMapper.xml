@@ -2,32 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.asteroid.expression.login.dao.LoginDao">
 
-	<select id="queryMenu" resultType="com.asteroid.expression.login.model.Menu">
-		select * from menu
+	<select id="checkLogin" resultType="com.asteroid.expression.user.model.User">
+		select * from t_user where status = 1 username = #{username} and password = #{password}
 	</select>
 
-
-	<select id="checkLogin" resultType="com.asteroid.expression.demo.model.User">
-		select * from user where username = #{username} and password = #{password}
-	</select>
-
-	<select id="queryGroupByUserId" parameterType="int" resultType="com.asteroid.expression.demo.model.UserGroup">
+	<select id="queryGroupByUserId" parameterType="int" resultType="com.asteroid.expression.user.model.Group">
 		SELECT
 			a.id,
 			a.group_name
 		FROM
-			user_group a
+			t_group a
 		WHERE
-			EXISTS ( SELECT 1 FROM user_user b WHERE b.user_id = #{id} AND b.group_id = a.id )
+			a.status = 1
+			AND EXISTS (
+				SELECT 1 FROM t_friend b
+				WHERE b.status = 1 and b.user_id = #{id} AND b.group_id = a.id )
 	</select>
 
-	<select id="queryGroupUser" parameterType="int" resultType="com.asteroid.expression.demo.model.User">
+	<select id="queryGroupUser" parameterType="com.asteroid.expression.user.model.Friend" resultType="com.asteroid.expression.user.model.User">
 		SELECT
 			a.*
 		FROM
-			user a
+			t_user a
 		WHERE
-			EXISTS ( SELECT 1 FROM user_user b WHERE b.user_id = 9 AND b.group_id = 1 AND b.friend_id = a.id )
+			a.status = 1
+			and EXISTS (
+				SELECT 1 FROM t_friend b
+				WHERE b.status = 1 and b.user_id = #{user_id} AND b.group_id = #{group_id} AND b.friend_id = a.id )
 	</select>
 
 </mapper>

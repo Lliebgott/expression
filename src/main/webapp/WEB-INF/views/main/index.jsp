@@ -94,7 +94,8 @@
         </ul>
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="side-nav ztree" style="border: 1px solid red" id="treeDemo">
+            <ul class="nav navbar-nav side-nav" id="menu_tree">
+                <div id="treeDemo" class="ztree" style="border: 1px solid red"></div>
             </ul>
         </div>
 
