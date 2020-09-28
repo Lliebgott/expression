@@ -5,8 +5,12 @@ import com.asteroid.expression.common.eenum.StatusEnum;
 import com.asteroid.expression.user.dao.UserDao;
 import com.asteroid.expression.user.model.Content;
 import com.asteroid.expression.user.model.ContentFile;
+import com.asteroid.expression.user.model.Thumb;
 import com.asteroid.expression.user.model.User;
 import com.asteroid.expression.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +18,7 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -26,7 +31,8 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
-    private String dirPath = "F:\\workspace\\upload";
+    @Autowired
+    private Environment environment;
 
     @Override
     public JSONObject addUser(User user) {
@@ -34,14 +40,13 @@ public class UserServiceImpl implements UserService {
         result.put("success", false);
         user.setAddress(user.getProvince() + user.getCity() + user.getDistrict() + user.getAddress());
         user.setStatus(StatusEnum.EFFECTIVE.getId());
-        user.setLast_login_time(new Date());
+        user.setCreate_date(new Date());
         int n = userDao.addUser(user);
         if (n > 0) {
             result.put("success", true);
         }
         return result;
     }
-
 
     @Override
     public JSONObject checkExist(Integer id, String username) {
@@ -60,14 +65,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public JSONObject publish(String content, MultipartFile files[]) {
-
         JSONObject result = new JSONObject();
         result.put("success", false);
         Content model = new Content();
         // 设置user_id
         model.setUser_id(9);
         model.setContent(content);
-        model.setP_date(new Date());
+        model.setCreate_date(new Date());
         model.setStatus(StatusEnum.EFFECTIVE.getId());
         int n = userDao.publish(model);
         for (MultipartFile file: files) {
@@ -81,9 +85,10 @@ public class UserServiceImpl implements UserService {
 
     public void upload(Integer contentId, MultipartFile file, String fileName) {
         try {
+            String dirPath = environment.getProperty("uploadPath");
+            String imageName = UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf("."));
             // 生成新的文件名
-            String realPath = dirPath + "\\" + UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf("."));
-            File dest = new File(realPath);
+            File dest = new File(dirPath + "\\" + imageName);
             // 判断文件父目录是否存在
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdir();
@@ -93,11 +98,32 @@ public class UserServiceImpl implements UserService {
             ContentFile contentFile = new ContentFile();
             contentFile.setContent_id(contentId);
             contentFile.setFile_name(fileName);
-            contentFile.setFile_path(realPath);
+            contentFile.setFile_path("\\" + imageName);
             userDao.saveContextFile(contentFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public JSONObject thumb(Integer contentId, Integer userId, boolean state) {
+        JSONObject result = new JSONObject();
+        result.put("success", false);
+        Thumb model = new Thumb();
+        model.setContent_id(contentId);
+        model.setUser_id(userId);
+        model.setFriend_id(9);
+        model.setCreate_date(new Date());
+        int n = 0;
+        if (state) {
+            n = userDao.saveThumb(model);
+        } else {
+            n = userDao.cancelThumb(model);
+        }
+        if (n > 0) {
+            result.put("success", true);
+        }
+        return result;
     }
 
 }

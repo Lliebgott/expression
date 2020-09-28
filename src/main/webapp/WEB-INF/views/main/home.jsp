@@ -10,11 +10,9 @@
 <head>
     <meta charset="UTF-8">
     <title>这是一个首页</title>
-    <style>
-
-    </style>
-
-
+    <script>
+        var contents = ${contents};
+    </script>
 </head>
 <body>
     <jsp:include page="../include/include.jsp"></jsp:include>
@@ -36,77 +34,14 @@
                     </div>
                     <div class="form-group col-xs-6"></div>
                 </div>
-                <div class="form-group col-xs-12">
-                    <div class="form-group col-xs-6" align="right">
-
-                    </div>
-                    <div class="form-group col-xs-6"></div>
-                </div>
-                <div class="form-group col-xs-8 panel panel-primary">
+                <div class="form-group col-xs-8">
                     <div class="form-group col-xs-6" id="content_div">
-                        <div id="content_1" class="pb-10px col-md-12">
-                            <div id="time_1" class="pb-5px green">
-                                <span style="padding-top: 5px">
-                                    <img style="width: 20px"
-                                         src="../../../static/image/liebgott.jpg" />
-                                    <span>Liebgott&nbsp;&nbsp;&nbsp;</span>
-                                    <span>2020-09-27 13:30:30</span>
-                                </span>
-                            </div>
-                            <div id="text_1" class="pb-5px col-md-8">
-                                美丽的一天
-                            </div>
-                            <div class="col-md-8 pb-5px">
-                                <div class="col-md-4 pull-left pb-5px">
-                                    <img class="events-object img-responsive img-rounded img-width"
-                                         src="../../../static/image/liebgott.jpg" />
-                                </div>
-                                <div class="col-md-4 pull-left pb-5px">
-                                    <img class="events-object img-responsive img-rounded img-width"
-                                         src="../../../static/image/liebgott.jpg" />
-                                </div>
-                                <div class="col-md-4 pull-left pb-5px">
-                                    <img class="events-object img-responsive img-rounded img-width"
-                                         src="../../../static/image/liebgott.jpg" />
-                                </div>
-                                <div class="col-md-4 pull-left pb-5px">
-                                    <img class="events-object img-responsive img-rounded img-width"
-                                         src="../../../static/image/liebgott.jpg" />
-                                </div>
-                            </div>
-                            <div id="btn_area_1" class="col-md-8">
-                                <span class="glyphicon glyphicon-star-empty">收藏</span>
-                                <span class="glyphicon glyphicon-share-alt">转发</span>
-                                <span class="glyphicon glyphicon glyphicon-comment">评论</span>
-                                <span class="glyphicon glyphicon-thumbs-up">点赞</span>
-                            </div>
-                        </div>
-                        <div id="content_2" class="pb-10px col-md-12">
-                            <div id="time_2" class="pb-5px green">
-                                <span style="padding-top: 5px">
-                                    <img style="width: 20px"
-                                         src="../../../static/image/liebgott.jpg" />
-                                    <span>Liebgott&nbsp;&nbsp;&nbsp;</span>
-                                    <span>2020-09-27 14:55:33</span>
-                                </span>
-                            </div>
-                            <div id="text_2" class="pb-5px col-md-8">
-                                是时候表演真正的技术了！
-                            </div>
-                            <div id="btn_area_2" class="col-md-8">
-                                <span class="glyphicon glyphicon-star-empty">收藏</span>
-                                <span class="glyphicon glyphicon-share-alt">转发</span>
-                                <span class="glyphicon glyphicon-edit">评论</span>
-                                <span class="glyphicon glyphicon-thumbs-up">点赞</span>
-                            </div>
-                        </div>
                     </div>
                     <div class="form-group col-xs-6"></div>
                 </div>
             </form>
         </div>
     </div>
-
     <script src="../../../static/js/expression/main/home.js"></script>
 </body>
 </html>

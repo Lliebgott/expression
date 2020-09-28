@@ -4,9 +4,9 @@
 
 	<insert id="addUser" parameterType="com.asteroid.expression.user.model.User" useGeneratedKeys="true" keyProperty="id">
 		insert into t_user (name, username, password, mobile, email, province, city, district, address, status, last_login_time,
-		sex, label, image_name, image),
+		sex, label, image_name, image_path, create_date)
 		values (#{name}, #{username}, #{password}, #{mobile}, #{email}, #{province}, #{city}, #{district}, #{address},
-		#{status}, #{last_login_time}, #{sex}, #{label}, #{image_name}, #{image})
+		#{status}, #{last_login_time}, #{sex}, #{label}, #{image_name}, #{image_path}, #{create_date})
 	</insert>
 
 	<select id="checkExist" parameterType="com.asteroid.expression.user.model.User" resultType="int">
@@ -21,13 +21,22 @@
 	</select>
 
 	<insert id="publish" parameterType="com.asteroid.expression.user.model.Content" useGeneratedKeys="true" keyProperty="id">
-		insert into t_content (user_id, content, p_date, status)
-		values (#{user_id}, #{content}, #{p_date}, #{status})
+		insert into t_content (user_id, content, create_date, status)
+		values (#{user_id}, #{content}, #{create_date}, #{status})
 	</insert>
 
 	<insert id="saveContextFile" parameterType="com.asteroid.expression.user.model.ContentFile" useGeneratedKeys="true" keyProperty="id">
 		insert into t_content_file (content_id, file_name, file_path)
 		values (#{content_id}, #{file_name}, #{file_path})
 	</insert>
+
+	<insert id="saveThumb" parameterType="com.asteroid.expression.user.model.Thumb" useGeneratedKeys="true" keyProperty="id">
+		insert into t_thumb (content_id, user_id, friend_id, create_date)
+		values (#{content_id}, #{user_id}, #{friend_id}, #{create_date})
+	</insert>
+
+	<delete id="cancelThumb" parameterType="com.asteroid.expression.user.model.Thumb">
+		delete from t_thumb where user_id = #{user_id} and content_id = #{content_id} and friend_id = #{friend_id}
+	</delete>
 	
 </mapper>

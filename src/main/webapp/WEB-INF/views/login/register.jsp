@@ -31,7 +31,7 @@
                 <!--panel-body-->
                 <div class="panel-body">
                     <!--把其他的组件放到panel-body里面-->
-                    <form id="registerForm" role="form" method="post" action="user/addUser">
+                    <form id="registerForm" role="form" method="post" action="user/register">
                         <div class="form-group" >
                             <label for="name">名字:</label>
                             <input type="text" class="form-control" name="name" id="name"  placeholder="请输入名字" />

@@ -1,0 +1,37 @@
+#tomcat默认访问地址不带项目名
+#server.servlet.context-path=/springboot
+#server配置
+server:
+  #编码
+  tomcat.uri-encoding: utf-8
+  #端口
+  port: 8088
+
+#mybatis
+mybatis:
+  ##mapper.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+#jsp
+spring:
+  mvc:
+    static-path-pattern: /**
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  #资源文件
+  resources:
+    static-locations: file:F:\\workspace\\upload
+  #数据库连接配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.96.3:3306/expression?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: 123456
+
+
+
+#文件上传路径
+uploadPath: F:\\workspace\\upload
+

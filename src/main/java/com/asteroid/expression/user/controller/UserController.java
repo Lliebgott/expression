@@ -57,4 +57,19 @@ public class UserController {
         return userService.publish(content, files);
     }
 
+    /**
+     * 赞或取消
+     * @param contentId 发布内容id
+     * @param userId 用户id
+     * @param state 赞或取消
+     * @return 操作结果
+     */
+    @RequestMapping(value = {"/thumbs"}, method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject thumbs(@RequestParam("contentId") Integer contentId,
+                             @RequestParam("userId") Integer userId,
+                             @RequestParam("state") boolean state) {
+        return userService.thumb(contentId, userId, state);
+    }
+
 }

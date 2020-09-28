@@ -14,9 +14,11 @@ public class Content {
 
     private String content;
 
-    private Date p_date;
-
     private Integer status;
+
+    private Date create_date;
+
+    private Date delete_date;
 
     public Integer getId() {
         return id;
@@ -42,20 +44,28 @@ public class Content {
         this.content = content;
     }
 
-    public Date getP_date() {
-        return p_date;
-    }
-
-    public void setP_date(Date p_date) {
-        this.p_date = p_date;
-    }
-
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
+    }
+
+    public Date getDelete_date() {
+        return delete_date;
+    }
+
+    public void setDelete_date(Date delete_date) {
+        this.delete_date = delete_date;
     }
 
 }

@@ -19,4 +19,6 @@ public interface UserService {
 
     JSONObject publish(String content, MultipartFile files[]);
 
+    JSONObject thumb(Integer contentId, Integer userId, boolean state);
+
 }

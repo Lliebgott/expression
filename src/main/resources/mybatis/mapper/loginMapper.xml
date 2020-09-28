@@ -3,7 +3,7 @@
 <mapper namespace="com.asteroid.expression.login.dao.LoginDao">
 
 	<select id="checkLogin" resultType="com.asteroid.expression.user.model.User">
-		select * from t_user where status = 1 username = #{username} and password = #{password}
+		select * from t_user where status = 1 and username = #{username} and password = #{password}
 	</select>
 
 	<select id="queryGroupByUserId" parameterType="int" resultType="com.asteroid.expression.user.model.Group">
@@ -29,6 +29,29 @@
 			and EXISTS (
 				SELECT 1 FROM t_friend b
 				WHERE b.status = 1 and b.user_id = #{user_id} AND b.group_id = #{group_id} AND b.friend_id = a.id )
+	</select>
+
+	<select id="queryAllContent" parameterType="int" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.user_id,
+			b.name,
+			a.content,
+			a.create_date
+		FROM
+			t_content a
+			LEFT JOIN t_user b ON a.user_id = b.id
+			AND b.STATUS = 1
+		WHERE
+			a.STATUS = 1
+			AND (a.user_id = #{id}
+				OR EXISTS (SELECT 1 FROM t_friend c WHERE c.STATUS = 1 AND c.user_id = #{id} AND a.user_id = c.friend_id)
+			)
+		ORDER BY a.create_date DESC
+	</select>
+
+	<select id="queryFileByCId" parameterType="int" resultType="java.util.Map">
+		select * from t_content_file where content_id = #{id}
 	</select>
 
 </mapper>

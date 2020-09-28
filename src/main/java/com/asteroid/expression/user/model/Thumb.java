@@ -4,9 +4,9 @@ import java.util.Date;
 
 /**
  * @author: YuSai
- * @date: 2020-09-27 12:47
+ * @date: 2020-09-28 17:04
  */
-public class Comment {
+public class Thumb {
 
     private Integer id;
 
@@ -15,8 +15,6 @@ public class Comment {
     private Integer user_id;
 
     private Integer friend_id;
-
-    private String comment;
 
     private Date create_date;
 
@@ -48,16 +46,8 @@ public class Comment {
         return friend_id;
     }
 
-    public void setFriend_id(Integer frient_id) {
-        this.friend_id = frient_id;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setFriend_id(Integer friend_id) {
+        this.friend_id = friend_id;
     }
 
     public Date getCreate_date() {

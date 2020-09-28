@@ -1,21 +1,19 @@
 package com.asteroid.expression.login.service.impl;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.asteroid.expression.common.base.constant.SystemStaticConst;
 import com.asteroid.expression.common.eenum.StatusEnum;
-import com.asteroid.expression.common.util.node.NodeUtil;
-import com.asteroid.expression.user.model.Friend;
-import com.asteroid.expression.user.model.User;
-import com.asteroid.expression.user.model.Group;
+import com.asteroid.expression.common.util.JsonUtil;
 import com.asteroid.expression.login.dao.LoginDao;
-import com.asteroid.expression.login.model.Menu;
 import com.asteroid.expression.login.service.LoginService;
+import com.asteroid.expression.user.model.ContentFile;
+import com.asteroid.expression.user.model.Friend;
+import com.asteroid.expression.user.model.Group;
+import com.asteroid.expression.user.model.User;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +30,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public JSONObject checkLogin(User user) {
+        queryAllContent();
         JSONObject result = new JSONObject();
         List<User> users = loginDao.checkLogin(user);
         if (users.size() == 0) {
@@ -86,6 +85,20 @@ public class LoginServiceImpl implements LoginService {
             }
         }
         return array;
+    }
+
+    @Override
+    public JSONArray queryAllContent() {
+        JSONArray result = new JSONArray();
+        List<Map<String, Object>> contents = loginDao.queryAllContent(9);
+        for (Map<String, Object> content: contents) {
+            JSONObject json = JsonUtil.mapToJson(content);
+            // 查询图片
+            List<Map<String, Object>> files = loginDao.queryFileByCId(Integer.parseInt(content.get("id") + ""));
+            json.put("imgs", JsonUtil.listMapToArray(files));
+            result.add(json);
+        }
+        return result;
     }
 
 }

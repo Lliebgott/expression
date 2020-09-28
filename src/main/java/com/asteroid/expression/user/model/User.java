@@ -9,22 +9,42 @@ import java.util.Date;
 public class User {
 
     private Integer id;
+
     private String name;
+
     private String username;
+
     private String password;
+
     private String mobile;
+
     private String email;
+
     private String province;
+
     private String city;
+
     private String district;
+
     private String address;
+
     private Integer status;
+
     private String sex;
+
 //    private Date birthday;
+
     private String label;
+
     private String image_name;
-    private String image;
+
+    private String image_path;
+
     private Date last_login_time;
+
+    private Date create_date;
+
+    private Date delete_date;
 
     public Integer getId() {
         return id;
@@ -114,14 +134,6 @@ public class User {
         this.status = status;
     }
 
-//    public Date getBirthday() {
-//        return birthday;
-//    }
-//
-//    public void setBirthday(Date birthday) {
-//        this.birthday = birthday;
-//    }
-
     public String getSex() {
         return sex;
     }
@@ -129,6 +141,14 @@ public class User {
     public void setSex(String sex) {
         this.sex = sex;
     }
+
+//    public Date getBirthday() {
+//        return birthday;
+//    }
+//
+//    public void setBirthday(Date birthday) {
+//        this.birthday = birthday;
+//    }
 
     public String getLabel() {
         return label;
@@ -146,12 +166,12 @@ public class User {
         this.image_name = image_name;
     }
 
-    public String getImage() {
-        return image;
+    public String getImage_path() {
+        return image_path;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
     }
 
     public Date getLast_login_time() {
@@ -160,5 +180,21 @@ public class User {
 
     public void setLast_login_time(Date last_login_time) {
         this.last_login_time = last_login_time;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
+    }
+
+    public Date getDelete_date() {
+        return delete_date;
+    }
+
+    public void setDelete_date(Date delete_date) {
+        this.delete_date = delete_date;
     }
 }

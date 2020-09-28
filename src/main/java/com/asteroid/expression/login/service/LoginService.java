@@ -14,4 +14,6 @@ public interface LoginService {
 
     JSONArray queryLeftTreeData();
 
+    JSONArray queryAllContent();
+
 }

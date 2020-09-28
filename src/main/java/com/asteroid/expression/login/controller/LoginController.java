@@ -45,8 +45,10 @@ public class LoginController {
     }
 
     @RequestMapping("/home")
-    public String home() {
-        return "main/home";
+    public ModelAndView home() {
+        ModelAndView view = new ModelAndView("main/home");
+        view.addObject("contents", loginService.queryAllContent());
+        return view;
     }
 
     @RequestMapping("/index")
