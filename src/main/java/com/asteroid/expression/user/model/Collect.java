@@ -4,19 +4,15 @@ import java.util.Date;
 
 /**
  * @author: YuSai
- * @date: 2020-09-27 12:45
+ * @date: 2020-09-29 11:10
  */
-public class Content {
+public class Collect {
 
     private Integer id;
 
-    private Integer user_id;
-
-    private String content;
+    private String collect_name;
 
     private Integer status;
-
-    private Integer p_id;
 
     private Date create_date;
 
@@ -30,20 +26,12 @@ public class Content {
         this.id = id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public String getCollect_name() {
+        return collect_name;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setCollect_name(String collect_name) {
+        this.collect_name = collect_name;
     }
 
     public Integer getStatus() {
@@ -52,14 +40,6 @@ public class Content {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Integer getP_id() {
-        return p_id;
-    }
-
-    public void setP_id(Integer p_id) {
-        this.p_id = p_id;
     }
 
     public Date getCreate_date() {
@@ -77,5 +57,5 @@ public class Content {
     public void setDelete_date(Date delete_date) {
         this.delete_date = delete_date;
     }
-    
+
 }

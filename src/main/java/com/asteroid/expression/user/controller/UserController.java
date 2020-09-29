@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author: YuSai
@@ -60,16 +61,45 @@ public class UserController {
     /**
      * 赞或取消
      * @param contentId 发布内容id
-     * @param userId 用户id
+     * @param friendId 用户id
      * @param state 赞或取消
      * @return 操作结果
      */
     @RequestMapping(value = {"/thumbs"}, method = RequestMethod.POST)
     @ResponseBody
     public JSONObject thumbs(@RequestParam("contentId") Integer contentId,
-                             @RequestParam("userId") Integer userId,
+                             @RequestParam("friendId") Integer friendId,
                              @RequestParam("state") boolean state) {
-        return userService.thumb(contentId, userId, state);
+        return userService.thumb(contentId, friendId, state);
+    }
+
+    /**
+     * 收藏或取消
+     * @param contentId 发布内容id
+     * @param friendId 用户id
+     * @param state 收藏或取消
+     * @return 操作结果
+     */
+    @RequestMapping(value = {"/collect"}, method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject collect(@RequestParam("contentId") Integer contentId,
+                             @RequestParam("collectId") Integer collectId,
+                             @RequestParam("friendId") Integer friendId,
+                             @RequestParam("state") boolean state) {
+        return userService.collect(contentId, collectId,  friendId, state);
+    }
+
+    @RequestMapping("/forwardPage")
+    public ModelAndView forwardPage(@RequestParam("id") Integer id) {
+        ModelAndView view = new ModelAndView("main/forward");
+        view.addObject("contentId", id);
+        return view;
+    }
+
+    @RequestMapping("/forward")
+    @ResponseBody
+    public JSONObject forward(@RequestParam("contentId") Integer contentId, @RequestParam("contentText") String contentText) {
+       return userService.forward(contentId, contentText);
     }
 
 }

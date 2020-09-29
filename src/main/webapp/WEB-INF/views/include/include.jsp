@@ -44,6 +44,7 @@
 <script src="../../../static/js/bootstrap/ztree/jquery.ztree.all-3.5.min.js"></script>
 <script src="../../../static/js/bootstrap/checkbox/checkbox.js"></script>
 <script src="../../../static/js/ajaxutil/ajaxUtil.js"></script>
+<script src="../../../static/js/base/base.js"></script>
 <%--<script src="../../../static/js/bootstrap/date/date.prototype.format.js"></script>--%>
 <%--<script src="../../../static/js/bootstrap/util/number.pick.util.js"></script>--%>
 </html>

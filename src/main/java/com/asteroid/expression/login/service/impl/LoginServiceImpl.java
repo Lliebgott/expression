@@ -93,9 +93,30 @@ public class LoginServiceImpl implements LoginService {
         List<Map<String, Object>> contents = loginDao.queryAllContent(9);
         for (Map<String, Object> content: contents) {
             JSONObject json = JsonUtil.mapToJson(content);
+            int id = json.getInteger("id");
+            if (null != json.get("thumb")) {
+                json.put("thumb_class", "glyphicon-heart");
+                json.put("thumb_text", "取消点赞");
+            } else {
+                json.put("thumb_class", "glyphicon-heart-empty");
+                json.put("thumb_text", "点赞");
+            }
+            if (null != json.get("collect")) {
+                json.put("collect_class", "glyphicon-star");
+                json.put("collect_text", "取消收藏");
+            } else {
+                json.put("collect_class", "glyphicon-star-empty");
+                json.put("collect_text", "收藏");
+            }
             // 查询图片
-            List<Map<String, Object>> files = loginDao.queryFileByCId(Integer.parseInt(content.get("id") + ""));
+            List<Map<String, Object>> files = loginDao.queryFileByCId(id);
             json.put("imgs", JsonUtil.listMapToArray(files));
+            List<Map<String, Object>> commentLists = loginDao.queryCommentByCId(id);
+            json.put("commentnum", "评论(" + commentLists.size() + ")");
+            json.put("comments", JsonUtil.listMapToArray(commentLists));
+            List<Map<String, Object>> shareLists = loginDao.queryShareByCId(id);
+            json.put("sharenum", "转发(" + shareLists.size() + ")");
+            json.put("shares", shareLists);
             result.add(json);
         }
         return result;

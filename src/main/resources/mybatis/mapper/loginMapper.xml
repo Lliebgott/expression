@@ -37,21 +37,52 @@
 			a.user_id,
 			b.name,
 			a.content,
-			a.create_date
+			a.create_date,
+			d.id thumb,
+			e.id collect
 		FROM
 			t_content a
 			LEFT JOIN t_user b ON a.user_id = b.id
 			AND b.STATUS = 1
+			left join t_thumb d on a.id = d.content_id
+			left join t_collect_content e on a.id = e.content_id
 		WHERE
 			a.STATUS = 1
-			AND (a.user_id = #{id}
-				OR EXISTS (SELECT 1 FROM t_friend c WHERE c.STATUS = 1 AND c.user_id = #{id} AND a.user_id = c.friend_id)
-			)
+			AND (a.user_id = #{id} OR EXISTS (SELECT 1 FROM t_friend c WHERE c.STATUS = 1 AND c.user_id = #{id} AND a.user_id = c.friend_id))
 		ORDER BY a.create_date DESC
 	</select>
 
 	<select id="queryFileByCId" parameterType="int" resultType="java.util.Map">
 		select * from t_content_file where content_id = #{id}
+	</select>
+
+	<select id="queryCommentByCId" parameterType="int" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.content_id,
+			a.user_id,
+			b.name,
+			b.username,
+			a.friend_id,
+			a.comment_text,
+			a.create_date
+		FROM t_comment a
+		left join t_user b on a.friend_id = b.id and b.status = 1
+		WHERE a.content_id = #{id}
+	</select>
+
+	<select id="queryShareByCId" parameterType="int" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.user_id,
+			b.name,
+			b.username,
+			a.content,
+			a.p_id,
+			a.create_date
+		FROM t_content a
+		left join t_user b on a.user_id = b.id and b.status = 1
+		WHERE a.p_id = #{id}
 	</select>
 
 </mapper>

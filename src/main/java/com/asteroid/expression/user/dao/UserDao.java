@@ -1,9 +1,6 @@
 package com.asteroid.expression.user.dao;
 
-import com.asteroid.expression.user.model.Content;
-import com.asteroid.expression.user.model.ContentFile;
-import com.asteroid.expression.user.model.Thumb;
-import com.asteroid.expression.user.model.User;
+import com.asteroid.expression.user.model.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -26,5 +23,9 @@ public interface UserDao {
     int saveThumb(Thumb thumb);
 
     int cancelThumb(Thumb thumb);
+
+    int saveCollect(CollectContent collectContent);
+
+    int cancelCollect(CollectContent collectContent);
 
 }

@@ -25,4 +25,8 @@ public interface LoginDao {
 
     List<Map<String, Object>> queryFileByCId(int id);
 
+    List<Map<String, Object>> queryCommentByCId(int id);
+
+    List<Map<String, Object>> queryShareByCId(int id);
+
 }

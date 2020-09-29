@@ -21,8 +21,8 @@
 	</select>
 
 	<insert id="publish" parameterType="com.asteroid.expression.user.model.Content" useGeneratedKeys="true" keyProperty="id">
-		insert into t_content (user_id, content, create_date, status)
-		values (#{user_id}, #{content}, #{create_date}, #{status})
+		insert into t_content (user_id, content, create_date, status, p_id)
+		values (#{user_id}, #{content}, #{create_date}, #{status}, #{p_id})
 	</insert>
 
 	<insert id="saveContextFile" parameterType="com.asteroid.expression.user.model.ContentFile" useGeneratedKeys="true" keyProperty="id">
@@ -37,6 +37,15 @@
 
 	<delete id="cancelThumb" parameterType="com.asteroid.expression.user.model.Thumb">
 		delete from t_thumb where user_id = #{user_id} and content_id = #{content_id} and friend_id = #{friend_id}
+	</delete>
+
+	<insert id="saveCollect" parameterType="com.asteroid.expression.user.model.Thumb" useGeneratedKeys="true" keyProperty="id">
+		insert into t_collect_content (content_id, collect_id, user_id, friend_id, create_date)
+		values (#{content_id}, #{collect_id}, #{user_id}, #{friend_id}, #{create_date})
+	</insert>
+
+	<delete id="cancelCollect" parameterType="com.asteroid.expression.user.model.Thumb">
+		delete from t_collect_content where user_id = #{user_id} and content_id = #{content_id} and friend_id = #{friend_id}
 	</delete>
 	
 </mapper>
