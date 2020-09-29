@@ -7,10 +7,9 @@ import com.asteroid.expression.common.eenum.StatusEnum;
 import com.asteroid.expression.common.util.JsonUtil;
 import com.asteroid.expression.login.dao.LoginDao;
 import com.asteroid.expression.login.service.LoginService;
-import com.asteroid.expression.user.model.ContentFile;
-import com.asteroid.expression.user.model.Friend;
-import com.asteroid.expression.user.model.Group;
-import com.asteroid.expression.user.model.User;
+import com.asteroid.expression.user.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +23,9 @@ import java.util.Map;
 
 @Service("LoginService")
 public class LoginServiceImpl implements LoginService {
+
+    @Autowired
+    private Environment environment;
 
     @Resource
     private LoginDao loginDao;
@@ -90,6 +92,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public JSONArray queryAllContent() {
         JSONArray result = new JSONArray();
+        String dirPath = environment.getProperty("uploadPath");
         List<Map<String, Object>> contents = loginDao.queryAllContent(9);
         for (Map<String, Object> content: contents) {
             JSONObject json = JsonUtil.mapToJson(content);
@@ -109,7 +112,13 @@ public class LoginServiceImpl implements LoginService {
                 json.put("collect_text", "收藏");
             }
             // 查询图片
-            List<Map<String, Object>> files = loginDao.queryFileByCId(id);
+            ContentFile contentFile = new ContentFile();
+            contentFile.setId(dirPath.length());
+            contentFile.setContent_id(id);
+            if (null != json.get("p_id")) {
+                contentFile.setContent_id(json.getInteger("p_id"));
+            }
+            List<Map<String, Object>> files = loginDao.queryFileByCId(contentFile);
             json.put("imgs", JsonUtil.listMapToArray(files));
             List<Map<String, Object>> commentLists = loginDao.queryCommentByCId(id);
             json.put("commentnum", "评论(" + commentLists.size() + ")");

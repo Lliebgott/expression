@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
         result.put("success", false);
         Content model = new Content();
         // 设置user_id
-        model.setUser_id(9);
+        model.setUser_id(76);
         model.setContent(content);
         model.setCreate_date(new Date());
         model.setStatus(StatusEnum.EFFECTIVE.getId());
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
             String dirPath = environment.getProperty("uploadPath");
             String imageName = UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf("."));
             // 生成新的文件名
-            File dest = new File(dirPath + "\\" + imageName);
+            File dest = new File(dirPath + imageName);
             // 判断文件父目录是否存在
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdir();
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
             ContentFile contentFile = new ContentFile();
             contentFile.setContent_id(contentId);
             contentFile.setFile_name(fileName);
-            contentFile.setFile_path("\\" + imageName);
+            contentFile.setFile_path(dirPath + imageName);
             userDao.saveContextFile(contentFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
         JSONObject result = new JSONObject();
         result.put("success", false);
         Thumb model = new Thumb();
-        model.setUser_id(9);
+        model.setUser_id(76);
         model.setFriend_id(friendId);
         model.setContent_id(contentId);
         model.setCreate_date(new Date());
@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
         JSONObject result = new JSONObject();
         result.put("success", false);
         CollectContent model = new CollectContent();
-        model.setUser_id(9);
+        model.setUser_id(76);
         model.setFriend_id(friendId);
         model.setContent_id(contentId);
         model.setCollect_id(collectId);
@@ -154,9 +154,8 @@ public class UserServiceImpl implements UserService {
     public JSONObject forward(Integer contentId, String contentText) {
         JSONObject result = new JSONObject();
         result.put("success", false);
-
         Content model = new Content();
-        model.setUser_id(9);
+        model.setUser_id(76);
         model.setContent(contentText);
         model.setP_id(contentId);
         model.setCreate_date(new Date());

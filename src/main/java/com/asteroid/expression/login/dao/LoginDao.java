@@ -1,5 +1,6 @@
 package com.asteroid.expression.login.dao;
 
+import com.asteroid.expression.user.model.ContentFile;
 import com.asteroid.expression.user.model.Friend;
 import com.asteroid.expression.user.model.Group;
 import com.asteroid.expression.user.model.User;
@@ -23,7 +24,7 @@ public interface LoginDao {
 
     List<Map<String, Object>> queryAllContent(int id);
 
-    List<Map<String, Object>> queryFileByCId(int id);
+    List<Map<String, Object>> queryFileByCId(ContentFile contentFile);
 
     List<Map<String, Object>> queryCommentByCId(int id);
 

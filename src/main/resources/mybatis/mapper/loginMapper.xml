@@ -37,7 +37,8 @@
 			a.user_id,
 			b.name,
 			a.content,
-			a.create_date,
+			a.p_id,
+			DATE_FORMAT(a.create_date,'%Y-%m-%d %H:%i:%s') create_date,
 			d.id thumb,
 			e.id collect
 		FROM
@@ -52,8 +53,8 @@
 		ORDER BY a.create_date DESC
 	</select>
 
-	<select id="queryFileByCId" parameterType="int" resultType="java.util.Map">
-		select * from t_content_file where content_id = #{id}
+	<select id="queryFileByCId" parameterType="com.asteroid.expression.user.model.ContentFile" resultType="java.util.Map">
+		select id, content_id, file_name, substring(file_path, #{id}) file_path from t_content_file where content_id = #{content_id}
 	</select>
 
 	<select id="queryCommentByCId" parameterType="int" resultType="java.util.Map">
