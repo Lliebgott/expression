@@ -1,17 +1,15 @@
 package com.asteroid.expression.login.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.asteroid.expression.user.model.User;
 import com.asteroid.expression.login.service.LoginService;
+import com.asteroid.expression.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
 
 /**
  * @author: YuSai
@@ -45,9 +43,9 @@ public class LoginController {
     }
 
     @RequestMapping("/home")
-    public ModelAndView home() {
+    public ModelAndView home(@RequestParam("id") Integer id) {
         ModelAndView view = new ModelAndView("main/home");
-        view.addObject("contents", loginService.queryAllContent());
+        view.addObject("contents", loginService.queryAllContent(id));
         return view;
     }
 

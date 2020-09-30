@@ -53,6 +53,22 @@
 		ORDER BY a.create_date DESC
 	</select>
 
+	<select id="queryContentById" parameterType="int" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.user_id,
+			a.status,
+			a.p_id,
+			a.content,
+			b.name,
+			b.username
+		FROM
+			t_content a
+			LEFT JOIN t_user b ON a.user_id = b.id
+		WHERE
+			a.id = #{id}
+	</select>
+
 	<select id="queryFileByCId" parameterType="com.asteroid.expression.user.model.ContentFile" resultType="java.util.Map">
 		select id, content_id, file_name, substring(file_path, #{id}) file_path from t_content_file where content_id = #{content_id}
 	</select>
@@ -68,7 +84,7 @@
 			a.comment_text,
 			a.create_date
 		FROM t_comment a
-		left join t_user b on a.friend_id = b.id and b.status = 1
+		left join t_user b on a.user_id = b.id and b.status = 1
 		WHERE a.content_id = #{id}
 	</select>
 

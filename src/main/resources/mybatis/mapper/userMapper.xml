@@ -39,6 +39,11 @@
 		delete from t_thumb where user_id = #{user_id} and content_id = #{content_id} and friend_id = #{friend_id}
 	</delete>
 
+	<insert id="saveComment" parameterType="com.asteroid.expression.user.model.Content" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_comment (user_id, comment_text, friend_id, content_id, create_Date )
+	  	VALUES (#{user_id}, #{comment_text}, #{friend_id}, #{content_id}, #{create_date});
+	</insert>
+
 	<insert id="saveCollect" parameterType="com.asteroid.expression.user.model.Thumb" useGeneratedKeys="true" keyProperty="id">
 		insert into t_collect_content (content_id, collect_id, user_id, friend_id, create_date)
 		values (#{content_id}, #{collect_id}, #{user_id}, #{friend_id}, #{create_date})

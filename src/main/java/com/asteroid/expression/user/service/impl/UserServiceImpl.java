@@ -7,7 +7,6 @@ import com.asteroid.expression.user.dao.UserDao;
 import com.asteroid.expression.user.model.*;
 import com.asteroid.expression.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,8 +15,6 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -108,27 +105,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JSONObject thumb(Integer contentId, Integer friendId, boolean state) {
-        JSONObject result = new JSONObject();
-        result.put("success", false);
-        Thumb model = new Thumb();
-        model.setUser_id(76);
-        model.setFriend_id(friendId);
-        model.setContent_id(contentId);
-        model.setCreate_date(new Date());
-        int n;
-        if (state) {
-            n = userDao.saveThumb(model);
-        } else {
-            n = userDao.cancelThumb(model);
-        }
-        if (n > 0) {
-            result.put("success", true);
-        }
-        return result;
-    }
-
-    @Override
     public JSONObject collect(Integer contentId, Integer collectId, Integer friendId, boolean state) {
         JSONObject result = new JSONObject();
         result.put("success", false);
@@ -161,6 +137,45 @@ public class UserServiceImpl implements UserService {
         model.setCreate_date(new Date());
         model.setStatus(StatusEnum.EFFECTIVE.getId());
         int n = userDao.publish(model);
+        if (n > 0) {
+            result.put("success", true);
+        }
+        return result;
+    }
+
+    @Override
+    public JSONObject comment(Integer contentId, Integer friendId, String coment) {
+        JSONObject result = new JSONObject();
+        result.put("success", false);
+
+        Comment comment = new Comment();
+        comment.setUser_id(9);
+        comment.setComment_text(coment);
+        comment.setFriend_id(friendId);
+        comment.setContent_id(contentId);
+        comment.setCreate_date(new Date());
+        int n = userDao.saveComment(comment);
+        if (n > 0) {
+            result.put("success", true);
+        }
+        return result;
+    }
+
+    @Override
+    public JSONObject thumb(Integer contentId, Integer friendId, boolean state) {
+        JSONObject result = new JSONObject();
+        result.put("success", false);
+        Thumb model = new Thumb();
+        model.setUser_id(76);
+        model.setFriend_id(friendId);
+        model.setContent_id(contentId);
+        model.setCreate_date(new Date());
+        int n;
+        if (state) {
+            n = userDao.saveThumb(model);
+        } else {
+            n = userDao.cancelThumb(model);
+        }
         if (n > 0) {
             result.put("success", true);
         }

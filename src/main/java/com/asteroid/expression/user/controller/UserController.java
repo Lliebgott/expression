@@ -1,7 +1,6 @@
 package com.asteroid.expression.user.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.asteroid.expression.user.model.Content;
 import com.asteroid.expression.user.model.User;
 import com.asteroid.expression.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +99,14 @@ public class UserController {
     @ResponseBody
     public JSONObject forward(@RequestParam("contentId") Integer contentId, @RequestParam("contentText") String contentText) {
        return userService.forward(contentId, contentText);
+    }
+
+    @RequestMapping("/comment")
+    @ResponseBody
+    public JSONObject commnet(@RequestParam("contentId") Integer contentId,
+                              @RequestParam("friendId") Integer friendId,
+                              @RequestParam("comment") String comment) {
+       return userService.comment(contentId, friendId, comment);
     }
 
 }

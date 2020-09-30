@@ -1,11 +1,8 @@
 package com.asteroid.expression.user.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.asteroid.expression.user.model.Content;
 import com.asteroid.expression.user.model.User;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 /**
  * @author: YuSai
@@ -19,10 +16,12 @@ public interface UserService {
 
     JSONObject publish(String content, MultipartFile files[]);
 
-    JSONObject thumb(Integer contentId, Integer friendId, boolean state);
+    JSONObject comment(Integer contentId, Integer friendId, String comment);
+
+    JSONObject forward(Integer contentId, String contentText);
 
     JSONObject collect(Integer contentId, Integer collectId, Integer friendId, boolean state);
 
-    JSONObject forward(Integer contentId, String contentText);
+    JSONObject thumb(Integer contentId, Integer friendId, boolean state);
 
 }

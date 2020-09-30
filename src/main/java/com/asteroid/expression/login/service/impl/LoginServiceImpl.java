@@ -1,13 +1,15 @@
 package com.asteroid.expression.login.service.impl;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.asteroid.expression.common.eenum.StatusEnum;
 import com.asteroid.expression.common.util.JsonUtil;
 import com.asteroid.expression.login.dao.LoginDao;
 import com.asteroid.expression.login.service.LoginService;
-import com.asteroid.expression.user.model.*;
+import com.asteroid.expression.user.model.ContentFile;
+import com.asteroid.expression.user.model.Friend;
+import com.asteroid.expression.user.model.Group;
+import com.asteroid.expression.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public JSONObject checkLogin(User user) {
-        queryAllContent();
         JSONObject result = new JSONObject();
         List<User> users = loginDao.checkLogin(user);
         if (users.size() == 0) {
@@ -90,13 +91,16 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public JSONArray queryAllContent() {
+    public JSONArray queryAllContent(Integer id) {
         JSONArray result = new JSONArray();
         String dirPath = environment.getProperty("uploadPath");
-        List<Map<String, Object>> contents = loginDao.queryAllContent(9);
+        if (id == 0) {
+            id = 9;
+        }
+        List<Map<String, Object>> contents = loginDao.queryAllContent(id);
         for (Map<String, Object> content: contents) {
             JSONObject json = JsonUtil.mapToJson(content);
-            int id = json.getInteger("id");
+            int contentId = json.getInteger("id");
             if (null != json.get("thumb")) {
                 json.put("thumb_class", "glyphicon-heart");
                 json.put("thumb_text", "取消点赞");
@@ -114,21 +118,46 @@ public class LoginServiceImpl implements LoginService {
             // 查询图片
             ContentFile contentFile = new ContentFile();
             contentFile.setId(dirPath.length());
-            contentFile.setContent_id(id);
+            contentFile.setContent_id(contentId);
+            String forward = "";
             if (null != json.get("p_id")) {
-                contentFile.setContent_id(json.getInteger("p_id"));
+                forward += json.get("content");
+                JSONObject j = getPId(json.getInteger("p_id"), forward);
+                contentFile.setContent_id(j.getInteger("id"));
+                json.put("content", j.getString("forward"));
             }
             List<Map<String, Object>> files = loginDao.queryFileByCId(contentFile);
             json.put("imgs", JsonUtil.listMapToArray(files));
-            List<Map<String, Object>> commentLists = loginDao.queryCommentByCId(id);
+            List<Map<String, Object>> commentLists = loginDao.queryCommentByCId(contentId);
             json.put("commentnum", "评论(" + commentLists.size() + ")");
             json.put("comments", JsonUtil.listMapToArray(commentLists));
-            List<Map<String, Object>> shareLists = loginDao.queryShareByCId(id);
+            List<Map<String, Object>> shareLists = loginDao.queryShareByCId(contentId);
             json.put("sharenum", "转发(" + shareLists.size() + ")");
             json.put("shares", shareLists);
             result.add(json);
         }
         return result;
+    }
+
+    private JSONObject getPId(Integer pid, String forward) {
+        JSONObject json = new JSONObject();
+        Integer id = pid;
+        while (null != pid) {
+            List<Map<String, Object>> lists = loginDao.queryContentById(pid);
+            if (lists.size() > 0) {
+                JSONObject j = JsonUtil.mapToJson(lists.get(0));
+                pid = j.getInteger("p_id");
+                forward += "&nbsp;&nbsp;&nbsp;<a>" + j.get("name") + ":<a/>" + j.get("content");
+                if (null != pid) {
+                    id = j.getInteger("p_id");
+                }
+            } else {
+                pid = null;
+            }
+        }
+        json.put("id", id);
+        json.put("forward", forward);
+        return json;
     }
 
 }
