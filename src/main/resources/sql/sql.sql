@@ -11,11 +11,45 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 29/09/2020 18:52:59
+ Date: 09/10/2020 17:44:31
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `p_id` bigint(20) NULL DEFAULT NULL,
+  `tree_order` bigint(20) NULL DEFAULT NULL,
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `state` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES (1, '#', 'fa fa-fw fa-cogs', '系统管理', 0, 1, '#', '1');
+INSERT INTO `menu` VALUES (2, NULL, 'fa fa-fw fa-tree', '菜单管理', 1, 1, 'treeList', '1');
+INSERT INTO `menu` VALUES (7, 'groupManager', 'fa fa-fw fa-group', '组织架构', 1, 2, 'groupList', '1');
+INSERT INTO `menu` VALUES (8, 'userRoleManager', 'fa fa-fw fa-user-secret', '角色管理', 1, 3, 'userRoleList', '1');
+INSERT INTO `menu` VALUES (9, 'userManager', 'fa fa-fw fa-user', '用户维护', 1, 4, 'userList', '1');
+INSERT INTO `menu` VALUES (10, 'dictManager', 'fa fa-fw fa-book', '字典维护', 1, 5, 'dictList', '0');
+INSERT INTO `menu` VALUES (17, 'sysManager', 'fa fa-fw fa-desktop', '菜单维护', 0, 2, '#', '1');
+INSERT INTO `menu` VALUES (23, 'foodTypeManager', 'fa fa-fw fa-tree', '菜品维护', 17, 1, 'foodTypeList', '1');
+INSERT INTO `menu` VALUES (24, 'dinerListManager', 'fa fa-fw fa-book', '菜单管理', 17, 2, 'dinerList', '1');
+INSERT INTO `menu` VALUES (25, 'orderManager', 'fa fa-fw fa-book', '订单管理', 17, 3, 'orderList', '1');
+INSERT INTO `menu` VALUES (26, 'diningTableManager', 'fa fa-fw fa-tree', '餐桌维护', 17, 4, 'diningTableList', '1');
+INSERT INTO `menu` VALUES (27, 'userManagerTop', 'fa fa-user', '用户维护', 0, 3, '#', '1');
+INSERT INTO `menu` VALUES (28, 'mobileUserManager', 'fa fa-user-circle', '移动用户', 27, 1, 'mobileUser', '1');
+INSERT INTO `menu` VALUES (29, 'scoreDetailManager', 'fa fa-user-circle', '积分明细', 27, 2, 'scoreDetailList', '1');
 
 -- ----------------------------
 -- Table structure for t_collect
@@ -49,14 +83,14 @@ CREATE TABLE `t_collect_content`  (
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `xxx`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 收藏friend_id content_id 放在collect_id' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 收藏friend_id content_id 放在collect_id' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_collect_content
 -- ----------------------------
-INSERT INTO `t_collect_content` VALUES (7, 9, NULL, 43, 1, '2020-09-29 03:22:47');
-INSERT INTO `t_collect_content` VALUES (8, 9, NULL, 42, 1, '2020-09-29 03:22:48');
-INSERT INTO `t_collect_content` VALUES (10, 9, NULL, 44, 1, '2020-09-29 05:46:00');
+INSERT INTO `t_collect_content` VALUES (1, 9, 76, 64, 1, '2020-10-09 05:57:57');
+INSERT INTO `t_collect_content` VALUES (2, 9, 76, 63, 1, '2020-10-09 06:00:57');
+INSERT INTO `t_collect_content` VALUES (3, 10, 10, 65, 1, '2020-10-09 06:08:22');
 
 -- ----------------------------
 -- Table structure for t_comment
@@ -70,16 +104,17 @@ CREATE TABLE `t_comment`  (
   `content_id` int(9) NULL DEFAULT NULL COMMENT '内容id',
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 评论(comment_text) friend_id content_id' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 评论(comment_text) friend_id content_id' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_comment
 -- ----------------------------
-INSERT INTO `t_comment` VALUES (1, 9, '精彩！！！！！', 9, 42, '2020-09-29 10:32:02');
-INSERT INTO `t_comment` VALUES (2, 9, '66666666', 9, 42, '2020-09-29 10:32:02');
-INSERT INTO `t_comment` VALUES (3, 9, '笑死了', 9, 42, '2020-09-29 10:32:02');
-INSERT INTO `t_comment` VALUES (4, 9, '66666666', 9, 43, '2020-09-29 10:32:02');
-INSERT INTO `t_comment` VALUES (5, 9, '7777777', 9, 43, '2020-09-29 10:32:02');
+INSERT INTO `t_comment` VALUES (6, 9, '6666666', 76, 60, '2020-09-30 14:23:56');
+INSERT INTO `t_comment` VALUES (7, 10, '无敌了', 76, 60, '2020-09-30 14:23:56');
+INSERT INTO `t_comment` VALUES (8, 77, '超级了', 76, 60, '2020-09-30 14:23:56');
+INSERT INTO `t_comment` VALUES (9, 78, '快哦豁了', 76, 60, '2020-09-30 14:23:56');
+INSERT INTO `t_comment` VALUES (10, 9, '真是刺激哦', 76, 60, '2020-09-30 07:29:52');
+INSERT INTO `t_comment` VALUES (11, 9, '13', 76, 60, '2020-10-09 05:59:41');
 
 -- ----------------------------
 -- Table structure for t_content
@@ -96,27 +131,19 @@ CREATE TABLE `t_content`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `f_user_id`(`user_id`) USING BTREE,
   CONSTRAINT `f_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 发布/删除(status) content \r\nuser_id 转发(p_id) 发布/删除(status) content' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 发布/删除(status) content \r\nuser_id 转发(p_id) 发布/删除(status) content' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_content
 -- ----------------------------
-INSERT INTO `t_content` VALUES (42, 9, 1, NULL, '', '2020-09-28 08:20:48', NULL);
-INSERT INTO `t_content` VALUES (43, 9, 1, NULL, '', '2020-09-28 08:21:01', NULL);
-INSERT INTO `t_content` VALUES (44, 9, 1, NULL, '1231231231231', '2020-09-29 02:46:24', NULL);
-INSERT INTO `t_content` VALUES (47, 9, 1, 44, 'adsad', '2020-09-29 07:36:10', NULL);
-INSERT INTO `t_content` VALUES (48, 9, 1, 47, '', '2020-09-29 07:40:02', NULL);
-INSERT INTO `t_content` VALUES (49, 9, 1, 44, '', '2020-09-29 07:40:18', NULL);
-INSERT INTO `t_content` VALUES (50, 9, 1, 44, '12312323123', '2020-09-29 10:19:32', NULL);
-INSERT INTO `t_content` VALUES (51, 76, 1, NULL, '还有一天就放假啦', '2020-09-29 10:27:51', NULL);
-INSERT INTO `t_content` VALUES (52, 76, 1, 49, '123123123123', '2020-09-29 10:28:16', NULL);
-INSERT INTO `t_content` VALUES (53, 76, 1, 51, '的', '2020-09-29 10:29:07', NULL);
-INSERT INTO `t_content` VALUES (54, 76, 1, 51, '顶顶顶顶顶', '2020-09-29 10:29:19', NULL);
-INSERT INTO `t_content` VALUES (55, 76, 1, NULL, '', '2020-09-29 10:32:24', NULL);
-INSERT INTO `t_content` VALUES (56, 76, 1, NULL, '', '2020-09-29 10:35:18', NULL);
-INSERT INTO `t_content` VALUES (57, 76, 1, 55, '转发', '2020-09-29 10:50:51', NULL);
-INSERT INTO `t_content` VALUES (58, 76, 1, 54, '转发', '2020-09-29 10:51:05', NULL);
-INSERT INTO `t_content` VALUES (59, 76, 1, 54, '嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻', '2020-09-29 10:51:21', NULL);
+INSERT INTO `t_content` VALUES (60, 76, 1, NULL, '快要放假啦  期待！！！', '2020-09-30 06:00:35', NULL);
+INSERT INTO `t_content` VALUES (62, 76, 1, 60, '我也是  哈哈哈哈', '2020-09-30 06:01:24', NULL);
+INSERT INTO `t_content` VALUES (63, 76, 1, 62, 'Me too!!!', '2020-09-30 06:11:11', NULL);
+INSERT INTO `t_content` VALUES (64, 76, 1, 63, 'beautiful vication', '2020-09-30 06:11:41', NULL);
+INSERT INTO `t_content` VALUES (65, 10, 1, NULL, '放假结束了  不开心啊', '2020-10-09 06:08:11', NULL);
+INSERT INTO `t_content` VALUES (66, 10, 1, 65, '123', '2020-10-09 06:08:30', NULL);
+INSERT INTO `t_content` VALUES (67, 9, 1, NULL, '', '2020-10-09 06:54:17', NULL);
+INSERT INTO `t_content` VALUES (68, 9, 1, NULL, '', '2020-10-09 06:54:46', NULL);
 
 -- ----------------------------
 -- Table structure for t_content_file
@@ -130,35 +157,19 @@ CREATE TABLE `t_content_file`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `f_content_id`(`content_id`) USING BTREE,
   CONSTRAINT `f_content_id` FOREIGN KEY (`content_id`) REFERENCES `t_content` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_content_file
 -- ----------------------------
-INSERT INTO `t_content_file` VALUES (29, 42, 'QQ图片20200927091542 - 副本 (2).jpg', 'F:\\workspace\\upload\\3e9aaeaea2f546d1917bfd16e590067f.jpg');
-INSERT INTO `t_content_file` VALUES (30, 42, 'QQ图片20200927091542 - 副本 (3).jpg', 'F:\\workspace\\upload\\aaa0589d235e4fbb97f5b69324a876e8.jpg');
-INSERT INTO `t_content_file` VALUES (31, 42, 'QQ图片20200927091542 - 副本 (4).jpg', 'F:\\workspace\\upload\\ac4529dfc07c4ab09079c9304d20520c.jpg');
-INSERT INTO `t_content_file` VALUES (32, 42, 'QQ图片20200927091542 - 副本.jpg', 'F:\\workspace\\upload\\aeec14eb2e314cf79202a2a6a66940e9.jpg');
-INSERT INTO `t_content_file` VALUES (33, 42, 'QQ图片20200927091542.jpg', 'F:\\workspace\\upload\\ca1aa143fd674d66805e8010241e95eb.jpg');
-INSERT INTO `t_content_file` VALUES (34, 42, '微信图片_20200927091341 - 副本 (2).jpg', 'F:\\workspace\\upload\\8ab0934e1d674a3fa0d247aff22be3f4.jpg');
-INSERT INTO `t_content_file` VALUES (35, 42, '微信图片_20200927091341 - 副本 (3).jpg', 'F:\\workspace\\upload\\a876f4f2d0a1456086d4010e2c159135.jpg');
-INSERT INTO `t_content_file` VALUES (36, 42, '微信图片_20200927091341 - 副本 (4).jpg', 'F:\\workspace\\upload\\52e986e7da2848e49777aaec14f4cffc.jpg');
-INSERT INTO `t_content_file` VALUES (37, 42, '微信图片_20200927091341 - 副本.jpg', 'F:\\workspace\\upload\\7c01ef9762e84bf8b7e010843534ee6e.jpg');
-INSERT INTO `t_content_file` VALUES (38, 43, 'asteroid - 副本.png', 'F:\\workspace\\upload\\9c49e3dbb29c417db98d9cebc22f0782.png');
-INSERT INTO `t_content_file` VALUES (39, 43, 'asteroid.png', 'F:\\workspace\\upload\\9414082a1c58468785cf9d0d346853f2.png');
-INSERT INTO `t_content_file` VALUES (40, 43, 'Frog - 副本.png', 'F:\\workspace\\upload\\d73ccded681245c58656d30c74a9fe92.png');
-INSERT INTO `t_content_file` VALUES (41, 43, 'Frog.png', 'F:\\workspace\\upload\\0ae53e97a80e49c78b363affbd982457.png');
-INSERT INTO `t_content_file` VALUES (42, 43, 'QQ图片20200927091542 - 副本 (3).jpg', 'F:\\workspace\\upload\\ab0a2615229844d5857d5776389b21f5.jpg');
-INSERT INTO `t_content_file` VALUES (43, 43, 'QQ图片20200927091542 - 副本 (4).jpg', 'F:\\workspace\\upload\\3c9bd8679c16430b829cc228faad0e6f.jpg');
-INSERT INTO `t_content_file` VALUES (44, 43, 'QQ图片20200927091542 - 副本.jpg', 'F:\\workspace\\upload\\2433d7bfb53a40a59fa75ef55733add1.jpg');
-INSERT INTO `t_content_file` VALUES (45, 43, 'QQ图片20200927091542.jpg', 'F:\\workspace\\upload\\71083b8ffc284c1fb0594aedc41862ea.jpg');
-INSERT INTO `t_content_file` VALUES (46, 51, '微信图片_20200929091723.jpg', 'F:\\workspace\\upload\\dba70f4a7a4e4d63bba46ab632254f03.jpg');
-INSERT INTO `t_content_file` VALUES (47, 55, 'asteroid.png', 'F:\\workspace\\upload\\05c05cdb6eb84cb9bf9534a32eb062f8.png');
-INSERT INTO `t_content_file` VALUES (48, 55, 'Frog - 副本.png', 'F:\\workspace\\upload\\ad722824114040789b5d51076521cfdc.png');
-INSERT INTO `t_content_file` VALUES (49, 55, 'Frog.png', 'F:\\workspace\\upload\\c267eaf03e87452289848da6a26b024a.png');
-INSERT INTO `t_content_file` VALUES (50, 56, '微信图片_20200817090935.jpg', 'F:\\workspace\\upload\\c65f8f2e67914b0689f693aeccbac5ac.jpg');
-INSERT INTO `t_content_file` VALUES (51, 56, '微信图片_20200927091341.jpg', 'F:\\workspace\\upload\\88ff0447b87c477d98afb28c116a0113.jpg');
-INSERT INTO `t_content_file` VALUES (52, 56, '微信图片_20200929091723.jpg', 'F:\\workspace\\upload\\d5c8432a9e574909ae58642020656120.jpg');
+INSERT INTO `t_content_file` VALUES (53, 60, 'asteroid.png', 'F:\\workspace\\upload\\281875c4344044abacea91ff5a4a4f92.png');
+INSERT INTO `t_content_file` VALUES (54, 60, 'Frog.png', 'F:\\workspace\\upload\\40c3313401444798a8ecc5d3fa7bb679.png');
+INSERT INTO `t_content_file` VALUES (55, 60, '微信图片_20200927091341.jpg', 'F:\\workspace\\upload\\2618b35cd7e840c4bf02ddf12b2b3f16.jpg');
+INSERT INTO `t_content_file` VALUES (56, 60, '微信图片_20200929091723.jpg', 'F:\\workspace\\upload\\9c38fd81b1824a99a9c9a3017e23319d.jpg');
+INSERT INTO `t_content_file` VALUES (57, 65, 'asteroid.png', 'F:\\workspace\\upload\\26e4e64f96054633bd95ef1bb1857817.png');
+INSERT INTO `t_content_file` VALUES (58, 65, 'Frog.png', 'F:\\workspace\\upload\\b8274095e97d4591a12e1aba2795da3f.png');
+INSERT INTO `t_content_file` VALUES (59, 67, 'asteroid.png', 'F:\\workspace\\upload\\bd7b46b555ae44b49e22e9abbddf9696.png');
+INSERT INTO `t_content_file` VALUES (60, 68, 'QQ图片20200927091542.jpg', 'F:\\workspace\\upload\\08c6f4e741d046989fd68761b0370c09.jpg');
 
 -- ----------------------------
 -- Table structure for t_friend
@@ -179,7 +190,7 @@ CREATE TABLE `t_friend`  (
   CONSTRAINT `f_group_id` FOREIGN KEY (`group_id`) REFERENCES `t_group` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `t_frient_id` FOREIGN KEY (`friend_id`) REFERENCES `t_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `t_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 添加/删除(status) friend_id 分到了 group_id' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 添加/删除(status) friend_id 分到了 group_id' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_friend
@@ -192,6 +203,8 @@ INSERT INTO `t_friend` VALUES (5, 9, 1, 102, 2, '2020-09-28 10:45:52', NULL);
 INSERT INTO `t_friend` VALUES (6, 9, 1, 103, 2, '2020-09-28 10:45:52', NULL);
 INSERT INTO `t_friend` VALUES (7, 9, 1, 104, 2, '2020-09-28 10:45:52', NULL);
 INSERT INTO `t_friend` VALUES (8, 9, 1, 105, 2, '2020-09-28 10:45:52', NULL);
+INSERT INTO `t_friend` VALUES (9, 76, 1, 9, 1, '2020-09-30 10:32:45', NULL);
+INSERT INTO `t_friend` VALUES (10, 76, 1, 9, 1, '2020-09-30 10:39:36', NULL);
 
 -- ----------------------------
 -- Table structure for t_group
@@ -213,6 +226,17 @@ INSERT INTO `t_group` VALUES (1, '我的好友', 1, '2020-09-28 10:46:39', NULL)
 INSERT INTO `t_group` VALUES (2, '我喜欢的', 1, '2020-09-28 10:46:39', NULL);
 
 -- ----------------------------
+-- Table structure for t_role
+-- ----------------------------
+DROP TABLE IF EXISTS `t_role`;
+CREATE TABLE `t_role`  (
+  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `role_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色名称',
+  `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for t_thumb
 -- ----------------------------
 DROP TABLE IF EXISTS `t_thumb`;
@@ -223,15 +247,12 @@ CREATE TABLE `t_thumb`  (
   `content_id` int(9) NULL DEFAULT NULL COMMENT '内容id',
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '点赞时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 点赞了 friend_id 的 发布content_id' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'user_id 点赞了 friend_id 的 发布content_id' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_thumb
 -- ----------------------------
-INSERT INTO `t_thumb` VALUES (5, 9, 9, 43, '2020-09-29 02:44:11');
-INSERT INTO `t_thumb` VALUES (8, 9, 9, 42, '2020-09-29 03:23:05');
-INSERT INTO `t_thumb` VALUES (10, 9, 9, 44, '2020-09-29 05:48:07');
-INSERT INTO `t_thumb` VALUES (11, 76, 76, 54, '2020-09-29 10:29:36');
+INSERT INTO `t_thumb` VALUES (1, 9, 76, 64, '2020-10-09 05:59:14');
 
 -- ----------------------------
 -- Table structure for t_user
@@ -258,7 +279,7 @@ CREATE TABLE `t_user`  (
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `delete_date` datetime(0) NULL DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 107 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
@@ -296,5 +317,18 @@ INSERT INTO `t_user` VALUES (103, '刘帖愚', 'Ucapeslc', NULL, '18824081873', 
 INSERT INTO `t_user` VALUES (104, '尉迟档', 'Ldpunt', NULL, '13987078178', NULL, '江苏省', NULL, NULL, '中国辽宁省铁岭市破躯巴盗股份有限公司', 1, 1, '0000-00-00', 'Meizhou Seed Company Limited', NULL, NULL, NULL, '2020-09-28 10:45:28', NULL);
 INSERT INTO `t_user` VALUES (105, '翦施', 'Wnidk', NULL, '18625896205', NULL, '新疆维吾尔自治区', NULL, NULL, '中国江西省樟树市辩秧晁集团有限公司', 1, 2, '0000-00-00', 'Anqing Seed Co.Ltd', NULL, NULL, NULL, '2020-09-28 10:45:28', NULL);
 INSERT INTO `t_user` VALUES (106, '成龙', 'Jackie Chen', '123456', '13856888888', '86868686@qq.com', '北京市', '北京市市辖区', '东城区', '北京市北京市市辖区东城区街道地址', 1, 1, NULL, 'image_path', NULL, NULL, NULL, '2020-09-28 07:11:54', NULL);
+INSERT INTO `t_user` VALUES (107, '李连杰', 'JetLee', '123456', '13856888888', '86868686@qq.com', '北京市', '北京市市辖区', '东城区', '北京市北京市市辖区东城区浙江省杭州市西湖区', 1, 2, NULL, '123', NULL, NULL, NULL, '2020-10-09 02:23:19', NULL);
+
+-- ----------------------------
+-- Table structure for t_user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_role`;
+CREATE TABLE `t_user_role`  (
+  `id` int(9) NOT NULL COMMENT 'id',
+  `user_id` int(9) NULL DEFAULT NULL COMMENT '用户id',
+  `role_id` int(9) NULL DEFAULT NULL COMMENT '角色id',
+  `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
