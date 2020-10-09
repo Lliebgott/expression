@@ -6,7 +6,7 @@ $(function () {
         data: [{
             id: '99999999',
             text: '首页',
-            url: "home?id=0",
+            url: "home?id=0&flag=false",
             closeable: false
         }],
         showIndex: 0,
@@ -33,7 +33,7 @@ $(function () {
         callback : {
             onClick: function (e, treeId, treeNode) {
                 if (treeNode.level != 0) {
-                    $("#tabContainer").data("tabs").addTab({id: treeNode.id, text: treeNode.name, closeable: true, url: "/home?id=" + treeNode.id});
+                    $("#tabContainer").data("tabs").addTab({id: treeNode.id, text: treeNode.name, closeable: true, url: "/home?id=" + treeNode.id + "&flag=true"});
                 } else {
                     var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
                     treeObj.expandNode(treeNode, !treeNode.open, true, true);

@@ -11,6 +11,8 @@ import com.asteroid.expression.user.model.ContentFile;
 import com.asteroid.expression.user.model.Friend;
 import com.asteroid.expression.user.model.Group;
 import com.asteroid.expression.user.model.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,7 @@ public class LoginServiceImpl extends BaseService implements LoginService {
 
     @Override
     public JSONArray queryLeftTreeData() {
+        super.initLoginUser();
         // todo 查询用户组
         Integer userId = super.getLoginUser().getId();
         List<Group> groups = loginDao.queryGroupByUserId(userId);

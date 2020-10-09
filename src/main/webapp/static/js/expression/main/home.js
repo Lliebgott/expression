@@ -38,6 +38,11 @@ function publish() {
 
 
 $(function () {
+    if (flag) {
+        $('#publish_div').hide();
+    } else{
+        $('#publish_div').show();
+    }
     // 初始化内容
     $('#content_div').empty().append(initContents(contents));
     // 初始化上传

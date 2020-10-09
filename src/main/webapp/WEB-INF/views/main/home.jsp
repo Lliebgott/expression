@@ -12,6 +12,7 @@
     <title>这是一个首页</title>
     <script>
         var contents = ${contents};
+        var flag = ${flag};
     </script>
 </head>
 <body>
@@ -22,7 +23,7 @@
             <!--把其他的组件放到panel-body里面-->
             <form id="homeForm" role="form">
                 <div class="form-group col-xs-12">
-                    <div class="form-group col-xs-8">
+                    <div class="form-group col-xs-8" id="publish_div">
                         <label for="content">心情:</label>
                         <textarea type="text" class="form-control" name="content" id="content" rows="4" maxlength="140" placeholder="请输入心情，最多140字"></textarea>
                         <input type="file" name id="choose-file" multiple="multiple" style="opacity: 0"/>
@@ -35,11 +36,9 @@
                     <div class="form-group col-xs-6"></div>
                 </div>
                 <div class="form-group col-xs-8">
-                    <div class="panel panel-primary">
-                        <div class="form-group col-xs-6" id="content_div">
-                        </div>
-                        <div class="form-group col-xs-6"></div>
+                    <div class="form-group col-xs-6" id="content_div">
                     </div>
+                    <div class="form-group col-xs-6"></div>
                 </div>
             </form>
         </div>

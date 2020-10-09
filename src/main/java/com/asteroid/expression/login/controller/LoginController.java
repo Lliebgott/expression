@@ -56,8 +56,6 @@ public class LoginController {
             view.setViewName("login/login");
             return view;
         }
-        // 登录用户信息放入session
-        subject.getSession().setAttribute("user", userService.findByName(username));
         view.addObject("zNodes", loginService.queryLeftTreeData());
         return view;
     }
@@ -79,9 +77,17 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/home")
-    public ModelAndView home(@RequestParam("id") Integer id) {
+    public ModelAndView home(@RequestParam("id") Integer id, @RequestParam("flag") boolean flag) {
         ModelAndView view = new ModelAndView("main/home");
         view.addObject("contents", loginService.queryAllContent(id));
+        view.addObject("flag", flag);
+        return view;
+    }
+
+    @RequestMapping("/index")
+    public ModelAndView index() {
+        ModelAndView view = new ModelAndView("main/index");
+        view.addObject("zNodes", loginService.queryLeftTreeData());
         return view;
     }
 
