@@ -23,10 +23,10 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-4" style="margin-top: 70px">
             <h2 class="text-center">欢迎登录</h2>
-            <form id="loginForm" role="form" method="post" action="/checkLogin">
+            <form id="loginForm" role="form" method="post" action="/login">
                 <div class="form-group">
                     <label for="username">用户名</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+                    <input type="text" value="${username}" class="form-control" id="username" name="username" placeholder="用户名">
                 </div>
                 <div class="form-group">
                     <label for="password">密码</label>
@@ -44,6 +44,9 @@
                     </div>
                     <div class="form-group col-xs-6">
                         <button type="button" onclick="register()" id="register-btn" class="btn btn-success btn-block">注册</button>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <span style="color: red">${result}</span>
                     </div>
                 </div>
             </form>

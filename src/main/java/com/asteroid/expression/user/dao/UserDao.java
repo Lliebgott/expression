@@ -10,6 +10,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDao {
 
+    User findByName(String username);
+
     int addUser(User user);
 
     int checkExist(User user);

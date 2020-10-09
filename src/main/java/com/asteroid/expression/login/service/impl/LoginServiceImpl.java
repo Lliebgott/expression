@@ -2,6 +2,7 @@ package com.asteroid.expression.login.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.asteroid.expression.common.base.BaseService;
 import com.asteroid.expression.common.eenum.StatusEnum;
 import com.asteroid.expression.common.util.JsonUtil;
 import com.asteroid.expression.login.dao.LoginDao;
@@ -24,7 +25,7 @@ import java.util.Map;
  */
 
 @Service("LoginService")
-public class LoginServiceImpl implements LoginService {
+public class LoginServiceImpl extends BaseService implements LoginService {
 
     @Autowired
     private Environment environment;
@@ -54,7 +55,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public JSONArray queryLeftTreeData() {
         // todo 查询用户组
-        Integer userId = 9;
+        Integer userId = super.getLoginUser().getId();
         List<Group> groups = loginDao.queryGroupByUserId(userId);
         JSONArray array = new JSONArray();
         if (groups.size() == 0) {
@@ -95,7 +96,7 @@ public class LoginServiceImpl implements LoginService {
         JSONArray result = new JSONArray();
         String dirPath = environment.getProperty("uploadPath");
         if (id == 0) {
-            id = 9;
+            id = super.getLoginUser().getId();
         }
         List<Map<String, Object>> contents = loginDao.queryAllContent(id);
         for (Map<String, Object> content: contents) {

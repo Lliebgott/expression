@@ -1,6 +1,7 @@
 package com.asteroid.expression.user.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.asteroid.expression.common.base.BaseService;
 import com.asteroid.expression.common.eenum.StatusEnum;
 import com.asteroid.expression.login.dao.LoginDao;
 import com.asteroid.expression.user.dao.UserDao;
@@ -22,16 +23,18 @@ import java.util.UUID;
  * @date: 2020-09-23 15:26
  */
 @Service("UserService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseService implements UserService {
 
     @Resource
     private UserDao userDao;
 
-    @Resource
-    private LoginDao loginDao;
-
     @Autowired
     private Environment environment;
+
+    @Override
+    public User findByName(String username) {
+        return userDao.findByName(username);
+    }
 
     @Override
     public JSONObject addUser(User user) {
@@ -68,7 +71,7 @@ public class UserServiceImpl implements UserService {
         result.put("success", false);
         Content model = new Content();
         // 设置user_id
-        model.setUser_id(76);
+        model.setUser_id(super.getLoginUser().getId());
         model.setContent(content);
         model.setCreate_date(new Date());
         model.setStatus(StatusEnum.EFFECTIVE.getId());
@@ -109,7 +112,7 @@ public class UserServiceImpl implements UserService {
         JSONObject result = new JSONObject();
         result.put("success", false);
         CollectContent model = new CollectContent();
-        model.setUser_id(76);
+        model.setUser_id(super.getLoginUser().getId());
         model.setFriend_id(friendId);
         model.setContent_id(contentId);
         model.setCollect_id(collectId);
@@ -131,7 +134,7 @@ public class UserServiceImpl implements UserService {
         JSONObject result = new JSONObject();
         result.put("success", false);
         Content model = new Content();
-        model.setUser_id(76);
+        model.setUser_id(super.getLoginUser().getId());
         model.setContent(contentText);
         model.setP_id(contentId);
         model.setCreate_date(new Date());
@@ -147,9 +150,8 @@ public class UserServiceImpl implements UserService {
     public JSONObject comment(Integer contentId, Integer friendId, String coment) {
         JSONObject result = new JSONObject();
         result.put("success", false);
-
         Comment comment = new Comment();
-        comment.setUser_id(9);
+        comment.setUser_id(super.getLoginUser().getId());
         comment.setComment_text(coment);
         comment.setFriend_id(friendId);
         comment.setContent_id(contentId);
@@ -166,7 +168,7 @@ public class UserServiceImpl implements UserService {
         JSONObject result = new JSONObject();
         result.put("success", false);
         Thumb model = new Thumb();
-        model.setUser_id(76);
+        model.setUser_id(super.getLoginUser().getId());
         model.setFriend_id(friendId);
         model.setContent_id(contentId);
         model.setCreate_date(new Date());

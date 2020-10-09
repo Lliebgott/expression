@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface UserService {
 
+    User findByName(String username);
+
     JSONObject addUser(User user);
 
     JSONObject checkExist(Integer id, String username);

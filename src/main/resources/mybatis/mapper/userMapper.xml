@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.asteroid.expression.user.dao.UserDao">
 
+	<select id="findByName" parameterType="string" resultType="com.asteroid.expression.user.model.User">
+		select * from t_user where username = #{username}
+	</select>
+
 	<insert id="addUser" parameterType="com.asteroid.expression.user.model.User" useGeneratedKeys="true" keyProperty="id">
 		insert into t_user (name, username, password, mobile, email, province, city, district, address, status, last_login_time,
 		sex, label, image_name, image_path, create_date)

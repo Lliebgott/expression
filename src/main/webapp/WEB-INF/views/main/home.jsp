@@ -35,9 +35,11 @@
                     <div class="form-group col-xs-6"></div>
                 </div>
                 <div class="form-group col-xs-8">
-                    <div class="form-group col-xs-6" id="content_div">
+                    <div class="panel panel-primary">
+                        <div class="form-group col-xs-6" id="content_div">
+                        </div>
+                        <div class="form-group col-xs-6"></div>
                     </div>
-                    <div class="form-group col-xs-6"></div>
                 </div>
             </form>
         </div>

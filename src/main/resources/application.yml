@@ -5,7 +5,7 @@ server:
   #编码
   tomcat.uri-encoding: utf-8
   #端口
-  port: 8088
+  port: 8080
 
 #mybatis
 mybatis:

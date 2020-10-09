@@ -28,7 +28,7 @@ public class UserController {
      * @param username 用户名称
      * @return check结果
      */
-    @RequestMapping(value = {"/checkExist"}, method = RequestMethod.POST)
+    @RequestMapping(value = "/checkExist", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject checkExist(String username) {
         return userService.checkExist(null, username);
@@ -39,7 +39,7 @@ public class UserController {
      * @param user 用户信息
      * @return 注册结果
      */
-    @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject addUser(User user) {
         return userService.addUser(user);
@@ -51,7 +51,7 @@ public class UserController {
      * @param files 发布内容
      * @return 发布结果
      */
-    @RequestMapping(value = {"/publish"}, method = RequestMethod.POST)
+    @RequestMapping(value = "/publish", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject addUser(@RequestParam("content")final String content, @RequestParam("files[]") MultipartFile files[]) {
         return userService.publish(content, files);
@@ -64,7 +64,7 @@ public class UserController {
      * @param state 赞或取消
      * @return 操作结果
      */
-    @RequestMapping(value = {"/thumbs"}, method = RequestMethod.POST)
+    @RequestMapping(value = "/thumbs", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject thumbs(@RequestParam("contentId") Integer contentId,
                              @RequestParam("friendId") Integer friendId,
@@ -79,7 +79,7 @@ public class UserController {
      * @param state 收藏或取消
      * @return 操作结果
      */
-    @RequestMapping(value = {"/collect"}, method = RequestMethod.POST)
+    @RequestMapping(value = "/collect", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject collect(@RequestParam("contentId") Integer contentId,
                              @RequestParam("collectId") Integer collectId,
@@ -88,20 +88,20 @@ public class UserController {
         return userService.collect(contentId, collectId,  friendId, state);
     }
 
-    @RequestMapping("/forwardPage")
+    @RequestMapping(value = "/forwardPage")
     public ModelAndView forwardPage(@RequestParam("id") Integer id) {
         ModelAndView view = new ModelAndView("main/forward");
         view.addObject("contentId", id);
         return view;
     }
 
-    @RequestMapping("/forward")
+    @RequestMapping(value = "/forward", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject forward(@RequestParam("contentId") Integer contentId, @RequestParam("contentText") String contentText) {
        return userService.forward(contentId, contentText);
     }
 
-    @RequestMapping("/comment")
+    @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject commnet(@RequestParam("contentId") Integer contentId,
                               @RequestParam("friendId") Integer friendId,
