@@ -1,19 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.asteroid.expression.user.dao.UserDao">
+<mapper namespace="com.asteroid.expression.sys.dao.UserDao">
 
-	<select id="findByName" parameterType="string" resultType="com.asteroid.expression.user.model.User">
-		select * from t_user where username = #{username}
+	<resultMap type="com.asteroid.expression.sys.entity.User" id="UserMap">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="mobile" column="mobile"/>
+		<result property="email" column="email"/>
+		<result property="province" column="province"/>
+		<result property="city" column="city"/>
+		<result property="district" column="district"/>
+		<result property="address" column="address"/>
+		<result property="status" column="status"/>
+		<result property="sex" column="sex"/>
+		<result property="birthday" column="birthday"/>
+		<result property="label" column="label"/>
+		<result property="imageName" column="image_name"/>
+		<result property="imagePath" column="image_path"/>
+		<result property="lastLoginDate" column="last_login_date"/>
+		<result property="createDate" column="create_date"/>
+		<result property="deleteDate" column="delete_date"/>
+	</resultMap>
+
+	<!-- 包含角色信息的map -->
+	<resultMap type="com.asteroid.expression.sys.entity.User" id="UserLoginMap">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="mobile" column="mobile"/>
+		<result property="email" column="email"/>
+		<result property="province" column="province"/>
+		<result property="city" column="city"/>
+		<result property="district" column="district"/>
+		<result property="address" column="address"/>
+		<result property="status" column="status"/>
+		<result property="sex" column="sex"/>
+		<!--<result property="birthday" column="birthday"/>-->
+		<result property="label" column="label"/>
+		<result property="imageName" column="image_name"/>
+		<result property="imagePath" column="image_path"/>
+		<result property="lastLoginDate" column="last_login_date"/>
+		<result property="createDate" column="create_date"/>
+		<result property="deleteDate" column="delete_date"/>
+		<collection property="roles" ofType="com.asteroid.expression.sys.entity.Role" javaType="java.util.ArrayList">
+			<result column="user_role_id" property="id" jdbcType="VARCHAR" />
+			<result column="en_name" property="enName" jdbcType="VARCHAR" />
+			<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+		</collection>
+	</resultMap>
+
+	<!-- 根据账号来获取用户信息 -->
+	<select id="findByUserName" parameterType="java.lang.String" resultMap="UserLoginMap">
+		select u.*,ur.id as user_role_id,ur.name en_name,ur.role_name
+		from t_user u
+		inner join t_user_role uar on u.id = uar.user_id
+		inner join t_role ur on uar.role_id = ur.id where u.username = #{username}
 	</select>
 
-	<insert id="addUser" parameterType="com.asteroid.expression.user.model.User" useGeneratedKeys="true" keyProperty="id">
-		insert into t_user (name, username, password, mobile, email, province, city, district, address, status, last_login_time,
-		sex, label, image_name, image_path, create_date)
-		values (#{name}, #{username}, #{password}, #{mobile}, #{email}, #{province}, #{city}, #{district}, #{address},
-		#{status}, #{last_login_time}, #{sex}, #{label}, #{image_name}, #{image_path}, #{create_date})
+	<!--根据主键获取对象-->
+	<select id="get" parameterType="com.asteroid.expression.sys.entity.User" resultMap="UserMap">
+		select u.* from t_user u
+		WHERE id=#{id}
+	</select>
+
+	<!--保存-->
+	<insert id="save" parameterType="com.asteroid.expression.sys.entity.User" useGeneratedKeys="true" keyProperty="id">
+		insert into t_user (name, username, password, mobile, email, province, city, district,
+		    address, status, birthday, sex, label, image_name, image_path, create_date)
+		values (#{name}, #{username}, #{password}, #{mobile}, #{email}, #{province}, #{city}, #{district},
+		    #{address}, #{status}, #{birthday}, #{sex}, #{label}, #{imageName}, #{imagePath}, #{createDate})
 	</insert>
 
-	<select id="checkExist" parameterType="com.asteroid.expression.user.model.User" resultType="int">
+	<!--修改-->
+	<update id="update" parameterType="com.asteroid.expression.sys.entity.User">
+		UPDATE t_user SET name=#{name},username=#{username},password=#{password},mobile=#{mobile},
+		birthday=#{birthday},email=#{email},province=#{province},city=#{city},district=#{district}
+		address=#{address},status=#{status},last_login_time=#{lastLoginDate},sex=#{sex},label=#{label}
+		image_name=#{imageName},image_path=#{imagePath}
+		WHERE id=#{id}
+	</update>
+
+	<!--删除-->
+	<delete id="delete" parameterType="com.asteroid.expression.sys.entity.User">
+		DELETE FROM t_user WHERE id=#{id}
+	</delete>
+
+	<!--分页查询组织架构底下的用户-->
+	<select id="findGroupUserByPage" parameterType="com.asteroid.expression.sys.entity.User" resultMap="UserMap">
+		select u.* from t_user u
+		WHERE 1=1
+		<if test="userName!=null and userName!='' ">
+			AND u.user_name like concat(#{userName},'%')
+		</if>
+		<if test="sort!= null and sort!='' ">
+			order by ${sort} ${order}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+
+	<!--统计组织架构底下的用户-->
+	<select id="countGroupUser" parameterType="com.asteroid.expression.sys.entity.User" resultType="int">
+		select count(1) from t_user u
+		WHERE 1=1
+		<if test="userName!=null and userName!='' ">
+			AND u.user_name like concat(#{userName},'%')
+		</if>
+	</select>
+
+	<!--分页查询-->
+	<select id="findByPage" parameterType="com.asteroid.expression.sys.entity.User" resultMap="UserMap">
+		select u.* from t_user u
+		WHERE 1=1
+
+		limit #{offset},#{limit}
+	</select>
+
+	<!--统计-->
+	<select id="count" parameterType="com.asteroid.expression.sys.entity.User" resultType="int">
+		SELECT count(*) FROM t_user
+		WHERE 1=1
+		<if test="sort!= null and sort!='' ">
+			order by ${sort} ${order}
+		</if>
+	</select>
+
+	<!--查询-->
+	<select id="query" parameterType="com.asteroid.expression.sys.entity.User" resultMap="UserMap">
+		SELECT * FROM t_user
+		WHERE 1=1
+		<if test="sort!= null and sort!='' ">
+			order by ${sort} ${order}
+		</if>
+	</select>
+
+	<select id="checkExist" parameterType="com.asteroid.expression.sys.entity.User" resultType="int">
 		SELECT count(*) FROM t_user
 		WHERE status = 1
 		<if test="id!=null and id!='' ">
@@ -24,37 +147,55 @@
 		</if>
 	</select>
 
-	<insert id="publish" parameterType="com.asteroid.expression.user.model.Content" useGeneratedKeys="true" keyProperty="id">
+	<insert id="publish" parameterType="com.asteroid.expression.sys.entity.Content" useGeneratedKeys="true" keyProperty="id">
 		insert into t_content (user_id, content, create_date, status, p_id)
 		values (#{user_id}, #{content}, #{create_date}, #{status}, #{p_id})
 	</insert>
 
-	<insert id="saveContextFile" parameterType="com.asteroid.expression.user.model.ContentFile" useGeneratedKeys="true" keyProperty="id">
+	<insert id="saveContextFile" parameterType="com.asteroid.expression.sys.entity.ContentFile" useGeneratedKeys="true" keyProperty="id">
 		insert into t_content_file (content_id, file_name, file_path)
 		values (#{content_id}, #{file_name}, #{file_path})
 	</insert>
 
-	<insert id="saveThumb" parameterType="com.asteroid.expression.user.model.Thumb" useGeneratedKeys="true" keyProperty="id">
+	<insert id="saveThumb" parameterType="com.asteroid.expression.sys.entity.Thumb" useGeneratedKeys="true" keyProperty="id">
 		insert into t_thumb (content_id, user_id, friend_id, create_date)
 		values (#{content_id}, #{user_id}, #{friend_id}, #{create_date})
 	</insert>
 
-	<delete id="cancelThumb" parameterType="com.asteroid.expression.user.model.Thumb">
+	<delete id="cancelThumb" parameterType="com.asteroid.expression.sys.entity.Thumb">
 		delete from t_thumb where user_id = #{user_id} and content_id = #{content_id} and friend_id = #{friend_id}
 	</delete>
 
-	<insert id="saveComment" parameterType="com.asteroid.expression.user.model.Content" useGeneratedKeys="true" keyProperty="id">
+	<insert id="saveComment" parameterType="com.asteroid.expression.sys.entity.Content" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO t_comment (user_id, comment_text, friend_id, content_id, create_Date )
 	  	VALUES (#{user_id}, #{comment_text}, #{friend_id}, #{content_id}, #{create_date});
 	</insert>
 
-	<insert id="saveCollect" parameterType="com.asteroid.expression.user.model.Thumb" useGeneratedKeys="true" keyProperty="id">
+	<insert id="saveCollect" parameterType="com.asteroid.expression.sys.entity.Thumb" useGeneratedKeys="true" keyProperty="id">
 		insert into t_collect_content (content_id, collect_id, user_id, friend_id, create_date)
 		values (#{content_id}, #{collect_id}, #{user_id}, #{friend_id}, #{create_date})
 	</insert>
 
-	<delete id="cancelCollect" parameterType="com.asteroid.expression.user.model.Thumb">
+	<delete id="cancelCollect" parameterType="com.asteroid.expression.sys.entity.Thumb">
 		delete from t_collect_content where user_id = #{user_id} and content_id = #{content_id} and friend_id = #{friend_id}
 	</delete>
-	
+
+	<select id="searchUser" parameterType="com.asteroid.expression.sys.entity.User" resultType="java.util.Map">
+		select
+			a.id friendId,
+			a.name,
+			a.username,
+			b.name sex,
+			a.city,
+			a.label,
+			substring(image_path, 20) image_path
+		from t_user a
+		left join t_dict b on a.sex = b.code and b.type = 'sex'
+		where a.status = 1
+		<if test="name!=null and name!='' ">
+			AND (a.username like concat('%',#{name},'%')
+			or a.name like concat('%',#{name},'%'))
+		</if>
+	</select>
+
 </mapper>

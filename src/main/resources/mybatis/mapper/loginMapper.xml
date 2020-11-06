@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.asteroid.expression.login.dao.LoginDao">
+<mapper namespace="com.asteroid.expression.sys.dao.LoginDao">
 
-	<select id="checkLogin" resultType="com.asteroid.expression.user.model.User">
-		select * from t_user where status = 1 and username = #{username} and password = #{password}
-	</select>
-
-	<select id="queryGroupByUserId" parameterType="int" resultType="com.asteroid.expression.user.model.Group">
+	<select id="queryGroupByUserId" parameterType="int" resultType="com.asteroid.expression.sys.entity.Group">
 		SELECT
 			a.id,
 			a.group_name
@@ -19,9 +15,11 @@
 				WHERE b.status = 1 and b.user_id = #{id} AND b.group_id = a.id )
 	</select>
 
-	<select id="queryGroupUser" parameterType="com.asteroid.expression.user.model.Friend" resultType="com.asteroid.expression.user.model.User">
+	<select id="queryGroupUser" parameterType="com.asteroid.expression.sys.entity.Friend" resultType="com.asteroid.expression.sys.entity.User">
 		SELECT
-			a.*
+			a.id,
+			a.name,
+			a.username
 		FROM
 			t_user a
 		WHERE
@@ -69,7 +67,7 @@
 			a.id = #{id}
 	</select>
 
-	<select id="queryFileByCId" parameterType="com.asteroid.expression.user.model.ContentFile" resultType="java.util.Map">
+	<select id="queryFileByCId" parameterType="com.asteroid.expression.sys.entity.ContentFile" resultType="java.util.Map">
 		select id, content_id, file_name, substring(file_path, #{id}) file_path from t_content_file where content_id = #{content_id}
 	</select>
 
