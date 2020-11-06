@@ -108,13 +108,13 @@ function initContents(datas) {
             html += '	</div>';
             var comments = data.comments;
             html += ' <div id="comment_area_' + data.id + '" class="col-md-12 pb-5px" style="margin-left: -40px; display: none">';
+            html += '   <ul id="comment_area_ul_' + data.id + '">';
             if (comments.length > 0) {
-                html += '   <ul id="comment_area_ul_' + data.id + '">';
                 for (var j = 0; j < comments.length; j++) {
                     html += '     <li><a>' + comments[j].name + '</a>：' + comments[j].comment_text + '</li>    ';
                 }
-                html += '   </ul>';
             }
+            html += '   </ul>';
             html += ' <div class="form-group col-xs-1">';
             html += '       <input id="comment_area_input_' + data.id + '" name="comment_area_input_' + data.id + '" value = "0" hidden="hidden"/>';
             html += '       <label>评论</label>';

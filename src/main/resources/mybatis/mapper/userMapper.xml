@@ -185,12 +185,11 @@
 			a.id friendId,
 			a.name,
 			a.username,
-			b.name sex,
+			case a.sex when 1 then 'male' else 'female' end sex,
 			a.city,
 			a.label,
 			substring(image_path, 20) image_path
-		from t_user a
-		left join t_dict b on a.sex = b.code and b.type = 'sex'
+			from t_user a
 		where a.status = 1
 		<if test="name!=null and name!='' ">
 			AND (a.username like concat('%',#{name},'%')

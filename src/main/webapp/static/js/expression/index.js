@@ -1,6 +1,6 @@
 function addClick() {
     debugger
-    window.Ewin.dialog({title:"查找好友：",url:"user/addFriendPage", gridId:"addFriend",width:800,height:500, btnok: "查询"})
+    window.Ewin.dialog({title:"查找好友：",url:"user/searchUserPage", gridId:"addFriend",width:800,height:500, btnok: "查询"})
 }
 
 function infoClick() {

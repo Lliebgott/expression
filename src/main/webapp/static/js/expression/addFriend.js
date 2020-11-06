@@ -1,46 +1,40 @@
-function searchUser() {
-    debugger
-    var searchValue = $('#adSearchInput').val();
-    if (searchValue) {
-        $.ajax({
-            url: 'user/searchUser',
-            type: 'post',
-            async:false,
-            data: {
-                name: name
-            },
-            dataType: 'json',
-            success: function (data) {
-                if (data.length == 0) {
-
-                } else {
-                    var html = "";
-                    for (var i = 0; i < data.length; i++) {
-                        html += '	<div class="col-md-4 pb-5px">';
-                        html += '			<img style="float:left;width:80px;height:80px;margin-right:10px" class="events-object img-responsive img-rounded"';
-                        html += '				 style="width: 57px; height: 57px" src="' + data[i].image_path + '" />';
-                        html += '			<div>' + data[i].name + '(' + data[i].username + ')</div>';
-                        html += '			<div>' + data[i].sex + '</div>';
-                        html += '			<div>' + data[i].city + '</div>';
-                        html += '			<div><a onclick="addFriend(' + data[i].id +  ')">加好友</a></div>';
-                        html += '		</div>';
-                    }
-                    $('#searchUserDiv').append(html)
-                }
+function subminForward(contentId, contentText) {
+    $.ajax({
+        url: 'user/forward',
+        type: 'post',
+        data: {
+            contentId: contentId,
+            contentText: contentText
+        },
+        dataType: 'json',
+        success: function (data) {
+            debugger
+            if (data.result) {
+                $('.modal-dialog', window.top.document).parent('div').remove();
+                $('body', window.top.document).find('.modal-backdrop').remove();
+                window.Ewin.alert({message: data.msg});
+                // 初始化内容
+                $('#content_div').empty().append(initContents(data.contents));
+            } else {
+                window.Ewin.alert({message: data.msg});
             }
-        });
-    } else {
-        window.Ewin.alert({message: "请输入姓名/账号！"});
+        }
+    });
+}
+
+function initGroup() {
+    var option = "<option>"+"选择您购买的专柜"+"</option>" ;
+    for (var i = 0; i < userGroups.length; i++) {
+        option += "<option value='"+userGroups[i].id+"'>"+userGroups[i].name+"</option>"
     }
+    $("#userGroup").html(option);//将循环拼接的字符串插入第二个下拉列表
 }
-
-function addFriend(id) {
-    alert(id);
-}
-
 
 $(function () {
+
+    initGroup();
+
     $("#btnOk",window.top.document).click(function() {
-        searchUser();
+        alert('提交水水水水水水');
     });
 });

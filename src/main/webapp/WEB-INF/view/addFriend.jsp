@@ -9,22 +9,29 @@
 <html>
 <head>
     <title>转发</title>
+    <script>
+        var userGroups = ${userGroups};
+    </script>
 </head>
 <body>
 <div class="panel panel-primary">
     <div class="panel-body">
-        <form id="forwardForm" class="form-horizontal">
-            <input id="afUserId" name="afUserId" value="${userId}" hidden="hidden"/>
+        <form id="addFriendForm">
+            <input id="friendId" name="friendId" value="${friendId}"/>
             <div class="form-group">
-                <label for="adSearchInput" class="col-sm-2 control-label">姓名/账号:</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="adSearchInput" placeholder="请输入姓名/账号">
+                <label for="userGroup" class="col-sm-2 control-label">分组:</label>
+                <div class="col-sm-10">
+                    <select name="userGroup" id="userGroup" class="form-control">
+                    </select>
                 </div>
-                <div class="col-sm-2">
-                   <button class="btn btn-success" onclick="searchUser()">查找</button>
+                <label for="checkMeg" class="col-sm-2 control-label">验证信息:</label>
+                <div class="col-sm-10">
+                    <textarea type="text" class="form-control" name="checkMeg" id="checkMeg" rows="4" maxlength="140" placeholder="请输入，最多140字"></textarea>
                 </div>
             </div>
-            <div id="searchUserDiv"></div>
+            <div class="form-group">
+
+            </div>
         </form>
     </div>
 </div>

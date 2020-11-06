@@ -35,7 +35,7 @@ public class LoginService {
 
     public JSONArray queryLeftTreeData() {
         int userId = CustomUserService.user.getId();
-        List<Group> groups = loginDao.queryGroupByUserId(userId);
+        List<Group> groups = queryGroupByUserId();
         JSONArray array = new JSONArray();
         if (groups.size() == 0) {
             JSONObject group = new JSONObject();
@@ -68,6 +68,10 @@ public class LoginService {
             }
         }
         return array;
+    }
+
+    public List<Group> queryGroupByUserId(){
+        return loginDao.queryGroupByUserId(CustomUserService.user.getId());
     }
 
     public JSONArray queryAllContent(Integer id) {

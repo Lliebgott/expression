@@ -1,17 +1,11 @@
 package com.asteroid.expression.sys.controller;
 
-import com.asteroid.expression.common.base.constant.SystemStaticConst;
 import com.asteroid.expression.common.base.controller.GenericController;
 import com.asteroid.expression.common.base.service.GenericService;
-import com.asteroid.expression.common.config.security.CustomPasswordEncoder;
 import com.asteroid.expression.common.config.security.CustomUserService;
-import com.asteroid.expression.common.util.DateUtil;
 import com.asteroid.expression.sys.entity.QueryUser;
 import com.asteroid.expression.sys.entity.User;
-import com.asteroid.expression.sys.entity.UserRole;
-import com.asteroid.expression.sys.service.UserRoleService;
 import com.asteroid.expression.sys.service.UserService;
-import com.asteroid.expression.sys.sysenum.UserRoleEnum;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.io.File;
-import java.util.Date;
 
 /**
  * @author: YuSai
@@ -142,12 +133,12 @@ public class UserController extends GenericController<User,QueryUser> {
     }
 
     /**
-     * 添加好友页面
-     * @return 添加好友页面
+     * 查找好友页面
+     * @return 查找好友页面
      */
-    @RequestMapping(value = "/addFriendPage")
-    public ModelAndView addFriendPage() {
-        ModelAndView view = new ModelAndView("addFriend");
+    @RequestMapping(value = "/searchUserPage")
+    public ModelAndView searchUserPage() {
+        ModelAndView view = new ModelAndView("searchUser");
         view.addObject("userId", CustomUserService.user.getId());
         return view;
     }
@@ -161,6 +152,18 @@ public class UserController extends GenericController<User,QueryUser> {
     @ResponseBody
     public JSONArray searchUser(@RequestParam("name") String name) {
         return userService.searchUser(name);
+    }
+
+    /**
+     * 添加好友页面
+     * @return 添加好友页面
+     */
+    @RequestMapping(value = "/addFriendPage")
+    public ModelAndView addFriendPage(@RequestParam("id") String id) {
+        ModelAndView view = new ModelAndView("addFriend");
+        view.addObject("friendId", id);
+        view.addObject("userGroups", userService.queryUserGroup());
+        return view;
     }
 
 }

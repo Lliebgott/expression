@@ -292,4 +292,24 @@ public class UserService extends GenericService<User, QueryUser> {
         return JsonUtil.listMapToArray(searchUser);
     }
 
+    @Transactional
+    public JSONArray queryUserGroup() {
+        List<Group> groups = loginService.queryGroupByUserId();
+        JSONArray array = new JSONArray();
+        if (groups.size() == 0) {
+            JSONObject json = new JSONObject();
+            json.put("id", "1");
+            json.put("name", "我的好友");
+            array.add(json);
+        } else {
+            for (Group userGroup: groups) {
+                JSONObject json = new JSONObject();
+                json.put("id", userGroup.getId());
+                json.put("name", userGroup.getGroup_name());
+                array.add(json);
+            }
+        }
+        return array;
+    }
+
 }
