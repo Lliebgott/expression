@@ -10,6 +10,23 @@
     <meta charset="UTF-8">
     <title>Expression Main</title>
     <link href="../../../static/css/sb-admin.css" rel="stylesheet"/>
+    <style>
+        div#rMenu {
+            position:absolute;
+            visibility:hidden;
+            top:0;
+            background-color: #555;
+            text-align: left;
+            padding: 2px;
+        }
+        div#rMenu ul li{
+            margin: 2px 0;
+            padding: 0 2px;
+            cursor: pointer;
+            list-style: none outside none;
+            background-color: #DFDFDF;
+        }
+    </style>
     <script>
         var zNodes = ${zNodes};
     </script>
@@ -103,6 +120,13 @@
                     <button type="button" name="addPic" onclick="successClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>
                 </div>
             </ul>
+            <div id="rMenu"  style="width: 60px;">
+                <ul>
+                    <li id="m_add" >新增</li>
+                    <li id="m_rename" >修改</li>
+                    <li id="m_del" >删除</li>
+                </ul>
+            </div>
         </div>
     </nav>
     <div id="page-wrapper" style="border-radius:5px 5px 0 0;">
