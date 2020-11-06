@@ -10,9 +10,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Expression Register</title>
+    <style>
+    .box{
+        text-align: center;
+    }
+    .t_img{
+        width: 75px;
+        height: 75px;
+        border-radius: 100%;
+    }
+    .s_box{
+        border-radius: 10px;
+        /*width: 500px;*/
+        height: auto;
+        border: 1px #c2c2d6 solid;
+        /*margin-left: 430px;*/
+        background-color: #4cb7cc ;
+        /*position:fixed;*/
+        display: none;
+    }
+    .s_box img{
+        width: 61px;
+        height: 61px;
+        margin: 5px;
+        border:1px solid #ccc;
+    }
+    .s_box img:hover{
+        border-color:red ;
+        transform: scale(1.25);
+        transition: .5s;
+    }
+    .header{
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 30px;
+    }
+    .close{
+        color:#000;
+        font-size: 21px;
+        opacity: .7;
+        position:absolute;
+        right:8px;
+        top:1px;
+        cursor: pointer;
+    }
+    .bt_box .gb{
+        display:inline-block;
+        width:80px;
+        height:35px;
+        border-radius: 10px;
+        background:#f3f3f3;
+        color:#444;
+        line-height: 35px;
+        margin: 10px;
+    }
+    .bt_box .queren{
+        display:inline-block;
+        width:80px;
+        height:35px;
+        border-radius: 10px;
+        background:#1a53ff;
+        color:white;
+        line-height: 35px;
+    }
+    .bt_box .gb:hover,.bt_box .queren:hover{
+        box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24),0 9px 25px 0 rgba(0,0,0,0.19);
+    }
+</style>
 </head>
 <body>
-<jsp:include page="../include/include.jsp"></jsp:include>
+<jsp:include page="include/include.jsp"></jsp:include>
 <div class="container">
     <div class="row">
         <!--放在一个大的col-md-12里-->
@@ -31,9 +99,39 @@
                 <!--panel-body-->
                 <div class="panel-body">
                     <!--把其他的组件放到panel-body里面-->
-                    <form id="registerForm" role="form" method="post" action="user/register">
+                    <form id="registerForm" role="form" method="post" action="/user/save">
+                        <div class="box">
+                            <div class="ft_img" id="ft_img">
+                                <img src="../../static/image/header/h1.png" class="t_img"/>
+                            </div>
+                            <div class="s_box" id="sbox">
+                                <div class="header">
+                                    <p>设置头像</p>
+                                    <span class="close" id="close">x</span>
+                                </div>
+                                <hr width="80%" color="#e0e0eb"/>
+                                <div id="t_img">
+                                    <img src="../../static/image/header/h1.png" />
+                                    <img src="../../static/image/header/h2.png" />
+                                    <img src="../../static/image/header/h3.png" />
+                                    <img src="../../static/image/header/h4.png" />
+                                    <img src="../../static/image/header/h5.png" />
+                                    <img src="../../static/image/header/h6.png" />
+                                    <img src="../../static/image/header/h7.png" />
+                                </div>
+                                <div align="center">
+                                    <input type="file" name="file0" id="file0" accept="image/*"/>
+                                </div>
+                                <hr width="80%" color="#e0e0eb"/>
+                                <div class="bt_box">
+                                    <a class="gb" href="javascript:" id="hide">关闭</a>
+                                    <%--<a class="queren" href="javascript:" id="but">保存头像</a>--%>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group" >
-                            <label for="name">名字:</label>
+                            <label for="name">姓名:</label>
+                            <input type="text" name="headFile" id="headFile" value="__h1.png" hidden/>
                             <input type="text" class="form-control" name="name" id="name"  placeholder="请输入名字" />
                         </div>
                         <div class="form-group">
@@ -76,8 +174,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="birthday">出生日期:</label>
-                            <input type="text" class="form-control" name="birthday" id="birthday"  placeholder="请输入出生日期" />
+                            <label for="birthStr">生日:</label>
+                            <input type="date" class="form-control" name="birthStr" id="birthStr"  placeholder="请输入出生日期" />
                         </div>
                         <div class="form-group">
                             <label for="label">心情:</label>
@@ -94,6 +192,6 @@
         <div class="col-md-2"></div>
     </div>
 </div>
-<script src="../../../static/js/expression/register/register.js"></script>
+<script src="../../static/js/expression/register.js"></script>
 </body>
 </html>

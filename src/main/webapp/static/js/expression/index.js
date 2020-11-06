@@ -1,3 +1,27 @@
+function addClick() {
+    debugger
+    window.Ewin.dialog({title:"查找好友：",url:"user/addFriendPage", gridId:"addFriend",width:800,height:500, btnok: "查询"})
+}
+
+function infoClick() {
+    $.eAlert({content: "提示内容info", type: 'info'});
+}
+
+function warnClick() {
+
+    $.eAlert({content: "提示内容warn", type: 'warning'});
+}
+
+function errorClick() {
+
+    $.eAlert({content: "提示内容error", type: 'error'});
+}
+
+function successClick() {
+
+    $.eAlert({content: "提示内容success", type: 'success'});
+}
+
 $(function () {
     // 初始化nav
     $.fn.bootstrapNav({index:'main',navTitle:'XXXX管理系统'});

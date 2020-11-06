@@ -14,7 +14,6 @@ function publish() {
         formData.append('files[]', fileList[i]);
     }
     formData.append('content', content);
-    console.log(formData)
     $.ajax({
         url: 'user/publish',
         type: 'post',
@@ -23,19 +22,20 @@ function publish() {
         processData: false,
         contentType: false,
         success: function (data) {
-            if (data.success) {
-                window.Ewin.alert({message: "发布成功！"});
+            window.Ewin.alert({message: data.msg});
+            if (data.result) {
                 setTimeout(function() {
                     $('#content').val('');
                     $('.file-item').remove();
                     $('#pic_ul').css("height", "0px");
                     fileList = [];
-                }, 2000);
+                    // 初始化内容
+                    $('#content_div').empty().append(initContents(data.contents));
+                }, 1000);
             }
         }
     })
 }
-
 
 $(function () {
     if (flag) {

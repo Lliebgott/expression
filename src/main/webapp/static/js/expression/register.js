@@ -3,6 +3,63 @@ function goBack() {
 }
 
 $(function () {
+
+    /* 隐藏，显现效果 */
+    $(".t_img").click(function(){
+        $("#sbox").show("slow");
+    });
+    $("#hide").click(function(){
+        $("#sbox").hide("slow");
+    });
+    $("#close").click(function(){
+        $("#sbox").hide("slow");
+    });
+    /*  选定图像获取图像src值 */
+    var $t_img = document.getElementById('t_img');
+    var $img = $t_img.getElementsByTagName('img');
+    var index = 0;
+    for(var i = 0; i<$img.length;i++){
+        $img[i].index=i;
+        $img[i].onclick = function(){
+            debugger
+            $img[index].style.borderRadius="15%";
+            $img[index].style.border="none"
+            this.style.borderRadius="50%";
+            this.style.border="1px solid red"
+            index = this.index;
+            var $newsrc = $img[index].src;
+            $(".t_img").attr('src',$newsrc);
+            $('#headFile').val("__h" + (index + 1) + ".png");
+        }
+    }
+    //点击确认修改按钮更换头像
+    $("#but").click(function(){
+        $("#sbox").hide("slow");
+    })
+
+    //讲选中的图片替换头像的图片
+    $("#file0").change(function(e){
+        var objUrl = getObjectURL(this.files[0]) ;
+        if (objUrl) {
+            $(".t_img").attr("src", objUrl) ;
+        }
+        $('#headFile').val($('#file0').val());
+    }) ;
+    //创建一个可存取到该file的url
+    function getObjectURL(file) {
+        var url = null ;
+        // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+
+    $("#sbox").hide();
     $('#registerForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
@@ -37,7 +94,7 @@ $(function () {
                     },
                     threshold :  6 , //有6字符以上才发送ajax请求，（input中输入一个字符，插件会向服务器发送一次，设置限制，6字符以上才开始）
                     remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}
-                        url: "user/checkExist",//验证地址
+                        url: "/user/checkExist",//验证地址
                         data:function(validator) {// 获取需要传送到后台的验证的数据
                             return {
                                 username:$('#username').val()
@@ -127,24 +184,54 @@ $(function () {
                         message: '邮箱不能为空'
                     }
                 }
+            },
+            birthStr:{
+                message: '生日无效',
+                validators: {
+                    notEmpty: {
+                        message: '生日不能为空'
+                    }
+                }
             }
         }
     }).on('success.form.bv', function(e) {//点击提交之后
-        e.preventDefault();
-        var $form = $(e.target);
-        // var bv = $form.data('bootstrapValidator');
-        // Use Ajax to submit form data 提交至form标签中的action，result自定义
-        $.post($form.attr('action'), $form.serialize(), function(result) {
-            //恢复submit按钮disable状态。
-            $('#registerForm').bootstrapValidator('disableSubmitButtons', false);
-            if (result.success) {
-                window.Ewin.alert({message:'注册成功!'});
-                setTimeout(function() {
-                    $(window.location).attr('href', '/login')
-                }, 2000);
+        var formData = new FormData($(e.target)[0]);
+        formData.append("file0", $('#file0')[0].files[0]);
+        $.ajax({
+            url: 'user/save',
+            type: 'post',
+            data: formData,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.Ewin.alert({message: data.msg});
+                if (data.result) {
+                    setTimeout(function() {
+                        $(window.location).attr('href', '/login')
+                    }, 2000);
+                }
             }
-        });
+        })
     });
+    $('#birthStr').datetimepicker({
+        language: 'zh-CN',//显示中文
+        format: 'yyyy-mm-dd',//显示格式
+        minView: "month",//设置只显示到月份
+        initialDate: new Date(),
+        autoclose: true,//选中自动关闭
+        todayBtn: true,//显示今日按钮
+        timepicker:false    //关闭时间选项
+        //locale: moment.locale('zh-cn')
+    });
+    // $('#s').datetimepicker({
+    //     lang:"ch", //语言选择中文 注：旧版本 新版方法：$.datetimepicker.setLocale('ch');
+    //     format:"Y-m-d",      //格式化日期
+    //     timepicker:false,    //关闭时间选项
+    //     yearStart：2000,     //设置最小年份
+    //     yearEnd:2050,        //设置最大年份
+    //     todayButton:false    //关闭选择今天按钮
+    // });
 
     // 加载bootstrap的省市区的下拉菜单
     $("#distpicker").distpicker({
@@ -152,5 +239,4 @@ $(function () {
         city: "北京市市辖区",
         district: "东城区"
     });
-
 });

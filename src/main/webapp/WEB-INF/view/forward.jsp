@@ -13,7 +13,7 @@
 <body>
 <div class="panel panel-primary">
     <div class="panel-body">
-        <form id="forwardForm">
+        <form id="addFriendForm">
             <div class="form-group">
                 <input id="contentId" name="contentId" value="${contentId}" hidden="hidden"/>
                 <textarea type="text" class="form-control" name="contentText" id="contentText" rows="4" maxlength="140" placeholder="请输入，最多140字"></textarea>
@@ -21,6 +21,6 @@
         </form>
     </div>
 </div>
-<script src="../../../static/js/expression/main/forward.js"></script>
+<script src="../../static/js/expression/forward.js"></script>
 </body>
 </html>

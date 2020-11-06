@@ -18,9 +18,11 @@
 <link href="../../../static/css/zTreeStyle/metro.css" rel="stylesheet">
 <link href="../../../static/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 <link href="../../../static/css/expression/home.css" rel="stylesheet"/>
+<link href="../../../static/css/eAlert/eAlert.css" rel="stylesheet"/>
+<link href="../../../static/css/eAlert/iconfont.css" rel="stylesheet"/>
 
 <link src="//www.jq22.com/favicon.ico"/>
-<link type="text/javascript" src="https://cdn.bootcss.com/layer/2.3/skin/layer.css"/>
+<link src="https://cdn.bootcss.com/layer/2.3/skin/layer.css"/>
 <script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
 
 <script src="../../../static/js/sockjs.min.js"></script>
@@ -45,6 +47,9 @@
 <script src="../../../static/js/bootstrap/checkbox/checkbox.js"></script>
 <script src="../../../static/js/ajaxutil/ajaxUtil.js"></script>
 <script src="../../../static/js/base/base.js"></script>
+<script src="../../../static/js/alert/eAlert.js"></script>
+
+
 <%--<script src="../../../static/js/bootstrap/date/date.prototype.format.js"></script>--%>
 <%--<script src="../../../static/js/bootstrap/util/number.pick.util.js"></script>--%>
 </html>

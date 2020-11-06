@@ -10,7 +10,7 @@ function upload() {
     // 监听它的onload事件，load完读取的结果就在它的result属性里了。它是一个base64格式的，可直接赋值给一个img的src.
     $file.on('change', function (e) {
         debugger
-        $('#pic_ul').css("height", "75px")
+        $('#pic_ul').css("height", "75px");
         curFile = this.files;
         //将FileList对象变成数组
         var selectFiles = [];
@@ -55,9 +55,9 @@ function upload() {
     }
     //点击删除按钮事件：
     $(".file-list").on('click', '.file-del', function () {
-        let $parent = $(this).parent();
+        var $parent = $(this).parent();
         console.log($parent);
-        let index = $parent.index();
+        var index = $parent.index();
         fileList.splice(index, 1);
         $parent.fadeOut(850, function () {
             $parent.remove();
@@ -107,27 +107,26 @@ function initContents(datas) {
             html += '		<span id="thumbs_' + data.id + '" class="glyphicon ' + data.thumb_class + '" onclick="thumbs(' + data.id + ')">' + data.thumb_text + '</span>';
             html += '	</div>';
             var comments = data.comments;
+            html += ' <div id="comment_area_' + data.id + '" class="col-md-12 pb-5px" style="margin-left: -40px; display: none">';
             if (comments.length > 0) {
-                html += ' <div id="comment_area_' + data.id + '" class="col-md-12 pb-5px" style="margin-left: -40px; display: none">';
-                html += '   <ul>';
+                html += '   <ul id="comment_area_ul_' + data.id + '">';
                 for (var j = 0; j < comments.length; j++) {
                     html += '     <li><a>' + comments[j].name + '</a>：' + comments[j].comment_text + '</li>    ';
                 }
                 html += '   </ul>';
-                html += ' <div class="form-group col-xs-1">';
-                html += '       <input id="comment_area_input_' + data.id + '" name="comment_area_input_' + data.id + '" value = "0" hidden="hidden"/>';
-                html += '       <label>评论</label>';
-                html += '</div>';
-                html += ' <div class="form-group col-xs-11">';
-                html += '       <textarea type="text" class="form-control" name="content_area_textarea_' + data.id + '" id="content_area_textarea_' + data.id + '" rows="4" maxlength="140" placeholder="请输入，最多140字"></textarea>';
-                html += '</div>';
-                html += ' <div class="col-xs-9" align="right">';
-                html += '</div>';
-                html += ' <div class="col-xs-3" align="right">';
-                html += '       <button type="button" name="submit" onclick="submitComment(' + data.id + ')" class="btn btn-success btn-block">提交</button>';
-                html += '</div>';
-                html += '</div>';
             }
+            html += ' <div class="form-group col-xs-1">';
+            html += '       <input id="comment_area_input_' + data.id + '" name="comment_area_input_' + data.id + '" value = "0" hidden="hidden"/>';
+            html += '       <label>评论</label>';
+            html += '</div>';
+            html += ' <div class="form-group col-xs-11">';
+            html += '       <textarea type="text" class="form-control" name="content_area_textarea_' + data.id + '" id="content_area_textarea_' + data.id + '" rows="4" maxlength="140" placeholder="请输入，最多140字"></textarea>';
+            html += '</div>';
+            html += ' <div class="col-xs-12" align="right">';
+            html += '       <button type="button" name="submit" onclick="submitComment(' + data.id + ')" class="btn btn-success">提交</button>';
+            html += '       <button type="button" name="cancel" onclick="comment(' + data.id + ')" class="btn">取消</button>';
+            html += '</div>';
+            html += '</div>';
             html += '</div>';
         }
     }
@@ -153,7 +152,8 @@ function collect(id) {
         },
         dataType: 'json',
         success: function (data) {
-            if (data.success) {
+            window.Ewin.alert({message: data.msg});
+            if (data.result) {
                 if ('收藏' == text) {
                     $('#collect_' + id)[0].innerText = '取消收藏';
                     $('#collect_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-star");
@@ -182,6 +182,34 @@ function comment(id) {
     }
 }
 
+function submitComment(id) {
+    var comment = $('#content_area_textarea_' + id).val();
+    if ('' == comment) {
+        window.Ewin.alert({message:'请输入评论内容!'});
+        return;
+    }
+    $.ajax({
+        url: 'user/comment',
+        type: 'post',
+        data: {
+            contentId: id,
+            friendId: $('#input_' + id).val(),
+            comment: comment
+        },
+        dataType: 'json',
+        success: function (data) {
+            window.Ewin.alert({message: data.msg});
+            $('#comment_' + id).empty().append(data.commentnum);
+            var html = '';
+            for (var i = 0; i < data.comments.length; i++) {
+                html += '<li><a>' + data.comments[i].name + '</a>：' + data.comments[i].comment_text + '</li>    ';
+            }
+            $('#comment_area_ul_' + id).empty().append(html);
+            $('#content_area_textarea_' + id).val('');
+        }
+    });
+}
+
 function thumbs(id) {
     var state;
     var text = $('#thumbs_' + id)[0].innerText;
@@ -200,7 +228,8 @@ function thumbs(id) {
         },
         dataType: 'json',
         success: function (data) {
-            if (data.success) {
+            window.Ewin.alert({message: data.msg});
+            if (data.result) {
                 if ('点赞' == text) {
                     $('#thumbs_' + id)[0].innerText = '取消点赞';
                     $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart");
@@ -208,29 +237,6 @@ function thumbs(id) {
                     $('#thumbs_' + id)[0].innerText = '点赞';
                     $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart-empty");
                 }
-            }
-        }
-    });
-}
-
-function submitComment(id) {
-    var comment = $('#content_area_textarea_' + id).val();
-    if ('' == comment) {
-        window.Ewin.alert({message:'请输入评论内容!'});
-        return;
-    }
-    $.ajax({
-        url: 'user/comment',
-        type: 'post',
-        data: {
-            contentId: id,
-            friendId: $('#input_' + id).val(),
-            comment: comment
-        },
-        dataType: 'json',
-        success: function (data) {
-            if (data.success) {
-                window.Ewin.alert({message:'评论成功!'});
             }
         }
     });

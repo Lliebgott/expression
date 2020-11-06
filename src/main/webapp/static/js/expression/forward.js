@@ -1,6 +1,4 @@
 function subminForward(contentId, contentText) {
-    debugger
-
     $.ajax({
         url: 'user/forward',
         type: 'post',
@@ -10,10 +8,15 @@ function subminForward(contentId, contentText) {
         },
         dataType: 'json',
         success: function (data) {
-            if (data.success) {
-                $('.modal-dialog', window.top.document).parent('div').remove()
+            debugger
+            if (data.result) {
+                $('.modal-dialog', window.top.document).parent('div').remove();
                 $('body', window.top.document).find('.modal-backdrop').remove();
-                window.Ewin.alert({message:'转发成功!'});
+                window.Ewin.alert({message: data.msg});
+                // 初始化内容
+                $('#content_div').empty().append(initContents(data.contents));
+            } else {
+                window.Ewin.alert({message: data.msg});
             }
         }
     });

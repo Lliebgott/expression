@@ -10,9 +10,12 @@
     <meta charset="UTF-8">
     <title>Expression Main</title>
     <link href="../../../static/css/sb-admin.css" rel="stylesheet"/>
+    <script>
+        var zNodes = ${zNodes};
+    </script>
 </head>
 <body >
-<jsp:include page="../include/include.jsp"></jsp:include>
+<jsp:include page="include/include.jsp"></jsp:include>
 <div id="wrapper">
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -91,35 +94,21 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav" id="menu_tree">
-
+                <div id="treeDemo" class="ztree" style="border: 1px solid red"></div>
+                <div style="padding-top: 5px">
+                    <button type="button" name="addPic" onclick="addClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>
+                    <button type="button" name="addPic" onclick="infoClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>
+                    <button type="button" name="addPic" onclick="warnClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>
+                    <button type="button" name="addPic" onclick="errorClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>
+                    <button type="button" name="addPic" onclick="successClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>
+                </div>
             </ul>
         </div>
-        <!-- /.navbar-collapse -->
     </nav>
     <div id="page-wrapper" style="border-radius:5px 5px 0 0;">
         <div id="tabContainer"></div>
     </div>
 </div>
-
-<script>
-    $(function () {
-        // 初始化nav
-        $.fn.bootstrapNav({index:'main',navTitle:'XXXX管理系统'});
-        // 初始化标签页
-        $("#tabContainer").tabs({
-            data: [{
-                id: '99999999',
-                text: '首页',
-                url: "home",
-                closeable: false
-            }],
-            showIndex: 0,
-            loadAll: false
-        })
-        //
-        $.fn.bootstrapTree({url:"/mainTree",treeId:'menu_tree',tabId:"tabContainer"});
-        // $.fn.dictUtil("/dict/loadDict");
-    });
-</script>
+<script src="../../static/js/expression/index.js"></script>
 </body>
 </html>
