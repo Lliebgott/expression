@@ -16,7 +16,7 @@
     </script>
 </head>
 <body>
-    <jsp:include page="include/include.jsp"></jsp:include>
+    <jsp:include page="../include/include.jsp"></jsp:include>
     <div class="panel panel-primary">
         <!--panel-body-->
         <div class="panel-body">
@@ -43,6 +43,6 @@
             </form>
         </div>
     </div>
-    <script src="../../static/js/expression/home.js"></script>
+    <script src="../../../static/js/expression/login/home.js"></script>
 </body>
 </html>

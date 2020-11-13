@@ -23,12 +23,17 @@ public class LoginController {
 
     @RequestMapping(value = "/register")
     public ModelAndView register(){
-        return new ModelAndView("register");
+        return new ModelAndView("login/register");
+    }
+
+    @RequestMapping(value = "/zeroModal")
+    public ModelAndView zeroModal(){
+        return new ModelAndView("login/zeroModal");
     }
 
     @RequestMapping(value = "/home")
     public ModelAndView home(@RequestParam("id") Integer id, @RequestParam("flag") boolean flag) {
-        ModelAndView view = new ModelAndView("home");
+        ModelAndView view = new ModelAndView("login/home");
         view.addObject("contents", loginService.queryAllContent(id));
         view.addObject("flag", flag);
         return view;
@@ -39,7 +44,7 @@ public class LoginController {
         ModelAndView view = new ModelAndView();
         // 普通用户
         if (CustomUserService.onlyNormalUser()) {
-            view.setViewName("index");
+            view.setViewName("login/index");
             view.addObject("zNodes", loginService.queryLeftTreeData());
         } else {
             view.setViewName("hello");

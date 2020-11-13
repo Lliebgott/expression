@@ -9,11 +9,11 @@ public enum StatusEnum {
     EFFECTIVE("有效", 1),
     INVALID("无效", 0);
 
-    private int id;
+    private Integer id;
 
     private String name;
 
-    StatusEnum(String name, int id) {
+    StatusEnum(String name, Integer id) {
         this.name = name;
         this.id = id;
     }
@@ -27,11 +27,11 @@ public enum StatusEnum {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

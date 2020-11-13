@@ -1,4 +1,4 @@
-function searchUser() {
+function searchClick(unique) {
     debugger
     var searchValue = $('#adSearchInput').val();
     if (searchValue) {
@@ -24,7 +24,11 @@ function searchUser() {
                         html += '   <div style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">';
                         html += '	    <span title="' + data[i].name + '(' + data[i].username +')">' + data[i].name + '(' + data[i].username + ')</span><br>';
                         html += '	    <span title="' + data[i].city + '"><img style="margin-right:5px" src="../../static/image/' + data[i].sex + '.png"/>' + data[i].city + '</span><br>';
-                        html += '	    <span><a onclick="addFriend(' + data[i].friendId +  ')">加好友</a></span>';
+                        if (data[i].id) {
+                            html += '   <span style="color: gray">已添加</span>';
+                        } else {
+                            html += '	<span><a onclick="addFriendModal(' + data[i].friendId +  ', \'' + data[i].name + '(' + data[i].username +')\')">加好友</a></span>';
+                        }
                         html += '	</div>';
                         html += '</div>';
                     }
@@ -33,18 +37,26 @@ function searchUser() {
             }
         });
     } else {
-        window.Ewin.alert({message: "请输入姓名/账号！"});
+        zeroModal.alert({content: "请输入姓名/账号！", height: '200px', top: '0px',})
     }
 }
 
-function addFriend(id) {
-    alert(id);
-    window.Ewin.dialog({title:"添加好友",url:"user/addFriendPage?id=" + id,gridId:"forward",width:700,height:400})
-}
-
-
-$(function () {
-    $("#btnOk",window.top.document).click(function() {
-        searchUser();
+function addFriendModal(id, name) {
+    debugger
+    zeroModal.show({title: '添加好友',
+        url: "user/addFriendPage",
+        ajaxType: 'post',
+        ajaxData: {
+            id: id,
+            name: name
+        },
+        width: '30%',
+        height: '38%',
+        ok: true,
+        cancel: true,
+        okFn: function(opt) {
+            addFriend();
+            return false;
+        }
     });
-});
+}

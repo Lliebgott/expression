@@ -10,6 +10,7 @@ import com.asteroid.expression.common.util.DateUtil;
 import com.asteroid.expression.common.util.JsonUtil;
 import com.asteroid.expression.sys.dao.UserDao;
 import com.asteroid.expression.sys.entity.*;
+import com.asteroid.expression.sys.sysenum.DefaultGroupEnum;
 import com.asteroid.expression.sys.sysenum.StatusEnum;
 import com.asteroid.expression.sys.sysenum.UserRoleEnum;
 import net.sf.json.JSONArray;
@@ -153,7 +154,7 @@ public class UserService extends GenericService<User, QueryUser> {
         }
         if (n > 0) {
             result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
-            result.put("contents", loginService.queryAllContent(model.getUser_id()));
+            result.put("contents", loginService.queryAllContent(0));
             result.put("msg", "发布成功！");
         } else {
             result.put("msg", "发布失败！");
@@ -209,9 +210,9 @@ public class UserService extends GenericService<User, QueryUser> {
         }
         if (n > 0) {
             result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
-            result.put("msg", "收藏成功！");
+            result.put("msg", state ? "收藏成功！": "取消收藏成功！");
         } else {
-            result.put("msg", "收藏失败！");
+            result.put("msg", state ? "收藏失败！": "取消收藏失败！");
         }
         return result;
     }
@@ -275,9 +276,9 @@ public class UserService extends GenericService<User, QueryUser> {
         }
         if (n > 0) {
             result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
-            result.put("msg", "点赞成功！");
+            result.put("msg", state ? "点赞成功！": "取消点赞成功！");
         } else {
-            result.put("msg", "点赞失败！");
+            result.put("msg", state ? "点赞失败！": "取消点赞失败！");
         }
         return result;
     }
@@ -286,10 +287,10 @@ public class UserService extends GenericService<User, QueryUser> {
     public JSONArray searchUser(String name) {
         String dirPath = yamlProps.getProps().getUploadPath();
         User user = new User();
-        user.setId(dirPath.length());
+        user.setId(CustomUserService.user.getId());
+        user.setStatus(dirPath.length());
         user.setName(name);
-        List<Map<String, Object>> searchUser = userDao.searchUser(user);
-        return JsonUtil.listMapToArray(searchUser);
+        return JsonUtil.listMapToArray(userDao.searchUser(user));
     }
 
     @Transactional
@@ -310,6 +311,32 @@ public class UserService extends GenericService<User, QueryUser> {
             }
         }
         return array;
+    }
+
+    @Transactional
+    public JSONObject saveFriend(Integer friendId, String userNote, Integer userGroup, String userCheckMsg) {
+        JSONObject result = new JSONObject();
+        Friend friend = new Friend();
+        friend.setUser_id(CustomUserService.user.getId());
+        friend.setFriend_id(friendId);
+        friend.setGroup_id(userGroup);
+        friend.setStatus(StatusEnum.EFFECTIVE.getId());
+        friend.setCreate_date(new Date());
+        int n = userDao.saveFriend(friend);
+        friend = new Friend();
+        friend.setUser_id(friendId);
+        friend.setFriend_id(CustomUserService.user.getId());
+        friend.setGroup_id(DefaultGroupEnum.MY_FRIEND.getId());
+        friend.setStatus(StatusEnum.EFFECTIVE.getId());
+        friend.setCreate_date(new Date());
+        userDao.saveFriend(friend);
+        if (n > 0) {
+            result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
+            result.put("msg", "添加成功！");
+        } else {
+            result.put("msg", "添加失败！");
+        }
+        return result;
     }
 
 }

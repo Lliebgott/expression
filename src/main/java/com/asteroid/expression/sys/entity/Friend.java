@@ -12,7 +12,7 @@ public class Friend {
 
     private Integer user_id;
 
-    private Integer frient_id;
+    private Integer friend_id;
 
     private Integer group_id;
 
@@ -38,12 +38,12 @@ public class Friend {
         this.user_id = user_id;
     }
 
-    public Integer getFrient_id() {
-        return frient_id;
+    public Integer getFriend_id() {
+        return friend_id;
     }
 
-    public void setFrient_id(Integer frient_id) {
-        this.frient_id = frient_id;
+    public void setFriend_id(Integer friend_id) {
+        this.friend_id = friend_id;
     }
 
     public Integer getGroup_id() {

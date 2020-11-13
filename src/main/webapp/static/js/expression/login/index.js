@@ -1,25 +1,31 @@
 function addClick() {
-    debugger
-    window.Ewin.dialog({title:"查找好友：",url:"user/searchUserPage", gridId:"addFriend",width:800,height:500, btnok: "查询"})
+    zeroModal.show({
+        title: '查找好友',
+        url: "user/searchUserPage",
+        width: '40%',
+        height: '40%',
+        ok: true,
+        cancel: true,
+        okFn: function(opt) {
+        },
+        buttons: [{
+            className: 'zeromodal-btn zeromodal-btn-primary',
+            name: '查询',
+            fn: function(opt) {
+                searchClick(opt.unique);
+                return false;
+            }
+        }, {
+            className: 'zeromodal-btn zeromodal-btn-default',
+            name: '取消',
+            fn: function(opt) {
+            }
+        }]
+    });
 }
 
-function infoClick() {
-    $.eAlert({content: "提示内容info", type: 'info'});
-}
-
-function warnClick() {
-
-    $.eAlert({content: "提示内容warn", type: 'warning'});
-}
-
-function errorClick() {
-
-    $.eAlert({content: "提示内容error", type: 'error'});
-}
-
-function successClick() {
-
-    $.eAlert({content: "提示内容success", type: 'success'});
+function searchClick() {
+    alert("123123123")
 }
 
 var rMenu = $("#rMenu");
@@ -61,17 +67,18 @@ function initTree(zNodes) {
                 if (treeNode.level != 0) {
                     $("#tabContainer").data("tabs").addTab({id: treeNode.id, text: treeNode.name, closeable: true, url: "/home?id=" + treeNode.id + "&flag=true"});
                 } else {
-                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    var treeObj = $.fn.zTree.getZTreeObj("friendTree");
                     treeObj.expandNode(treeNode, !treeNode.open, true, true);
                 }
-            },
-            onRightClick: function(event, treeId, treeNode){
-                //判断是否为点击事件;如果是节点点击事件，给全局变量ztreeNode赋值
-                showRMenu("node", event.clientX, event.clientY)
             }
+            // ,
+            // onRightClick: function(event, treeId, treeNode){
+            //     //判断是否为点击事件;如果是节点点击事件，给全局变量ztreeNode赋值
+            //     showRMenu("node", event.clientX, event.clientY)
+            // }
         }
     };
-    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    $.fn.zTree.init($("#friendTree"), setting, zNodes);
 }
 
 function showRMenu(type, x, y) {

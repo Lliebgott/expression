@@ -3,7 +3,6 @@ function goBack() {
 }
 
 $(function () {
-
     /* 隐藏，显现效果 */
     $(".t_img").click(function(){
         $("#sbox").show("slow");
@@ -205,12 +204,14 @@ $(function () {
             processData: false,
             contentType: false,
             success: function (data) {
-                window.Ewin.alert({message: data.msg});
-                if (data.result) {
-                    setTimeout(function() {
-                        $(window.location).attr('href', '/login')
-                    }, 2000);
-                }
+                zeroModal.alert({
+                    content: data.msg,
+                    okFn: function() {
+                        if (data.result) {
+                            $(window.location).attr('href', '/login')
+                        }
+                    }
+                });
             }
         })
     });

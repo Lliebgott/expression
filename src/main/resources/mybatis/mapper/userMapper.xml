@@ -188,13 +188,23 @@
 			case a.sex when 1 then 'male' else 'female' end sex,
 			a.city,
 			a.label,
-			substring(image_path, 20) image_path
-			from t_user a
+			substring(image_path, #{status}) image_path,
+			tf.id
+		from expression.t_user a
+		left join expression.t_friend tf on a.id = tf.user_id  and tf.status = 1
 		where a.status = 1
+		<if test="id!=null and id!='' ">
+			AND a.id != #{id}
+		</if>
 		<if test="name!=null and name!='' ">
 			AND (a.username like concat('%',#{name},'%')
 			or a.name like concat('%',#{name},'%'))
 		</if>
 	</select>
+
+	<insert id="saveFriend" parameterType="com.asteroid.expression.sys.entity.Friend" useGeneratedKeys="true" keyProperty="id">
+		insert into t_friend (user_id, friend_id, group_id, status, create_date)
+		values (#{user_id}, #{friend_id}, #{group_id}, #{status}, #{create_date})
+	</insert>
 
 </mapper>

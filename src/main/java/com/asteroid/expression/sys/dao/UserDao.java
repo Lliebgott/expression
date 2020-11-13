@@ -37,4 +37,6 @@ public interface UserDao extends GenericDao<User, QueryUser> {
 
     List<Map<String, Object>> searchUser(User user);
 
+    int saveFriend(Friend friend);
+
 }

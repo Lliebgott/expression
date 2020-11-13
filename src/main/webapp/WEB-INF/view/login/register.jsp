@@ -80,7 +80,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="include/include.jsp"></jsp:include>
+<jsp:include page="../include/include.jsp"></jsp:include>
 <div class="container">
     <div class="row">
         <!--放在一个大的col-md-12里-->
@@ -102,7 +102,7 @@
                     <form id="registerForm" role="form" method="post" action="/user/save">
                         <div class="box">
                             <div class="ft_img" id="ft_img">
-                                <img src="../../static/image/header/h1.png" class="t_img"/>
+                                <img src="../../../static/image/header/h1.png" class="t_img"/>
                             </div>
                             <div class="s_box" id="sbox">
                                 <div class="header">
@@ -111,13 +111,13 @@
                                 </div>
                                 <hr width="80%" color="#e0e0eb"/>
                                 <div id="t_img">
-                                    <img src="../../static/image/header/h1.png" />
-                                    <img src="../../static/image/header/h2.png" />
-                                    <img src="../../static/image/header/h3.png" />
-                                    <img src="../../static/image/header/h4.png" />
-                                    <img src="../../static/image/header/h5.png" />
-                                    <img src="../../static/image/header/h6.png" />
-                                    <img src="../../static/image/header/h7.png" />
+                                    <img src="../../../static/image/header/h1.png" />
+                                    <img src="../../../static/image/header/h2.png" />
+                                    <img src="../../../static/image/header/h3.png" />
+                                    <img src="../../../static/image/header/h4.png" />
+                                    <img src="../../../static/image/header/h5.png" />
+                                    <img src="../../../static/image/header/h6.png" />
+                                    <img src="../../../static/image/header/h7.png" />
                                 </div>
                                 <div align="center">
                                     <input type="file" name="file0" id="file0" accept="image/*"/>
@@ -192,6 +192,6 @@
         <div class="col-md-2"></div>
     </div>
 </div>
-<script src="../../static/js/expression/register.js"></script>
+<script src="../../../static/js/expression/login/register.js"></script>
 </body>
 </html>

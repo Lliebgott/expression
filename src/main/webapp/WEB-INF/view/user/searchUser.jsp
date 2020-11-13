@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>转发</title>
+    <title>查找好友</title>
 </head>
 <body>
 <div class="panel panel-primary">
@@ -25,6 +25,6 @@
         </form>
     </div>
 </div>
-<script src="../../static/js/expression/searchUser.js"></script>
+<script src="../../../static/js/expression/user/searchUser.js"></script>
 </body>
 </html>

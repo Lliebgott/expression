@@ -91,7 +91,7 @@ public class UserController extends GenericController<User,QueryUser> {
      */
     @RequestMapping(value = "/forwardPage")
     public ModelAndView forwardPage(@RequestParam("id") Integer id) {
-        ModelAndView view = new ModelAndView("forward");
+        ModelAndView view = new ModelAndView("user/forward");
         view.addObject("contentId", id);
         return view;
     }
@@ -138,7 +138,7 @@ public class UserController extends GenericController<User,QueryUser> {
      */
     @RequestMapping(value = "/searchUserPage")
     public ModelAndView searchUserPage() {
-        ModelAndView view = new ModelAndView("searchUser");
+        ModelAndView view = new ModelAndView("user/searchUser");
         view.addObject("userId", CustomUserService.user.getId());
         return view;
     }
@@ -158,12 +158,20 @@ public class UserController extends GenericController<User,QueryUser> {
      * 添加好友页面
      * @return 添加好友页面
      */
-    @RequestMapping(value = "/addFriendPage")
-    public ModelAndView addFriendPage(@RequestParam("id") String id) {
-        ModelAndView view = new ModelAndView("addFriend");
+    @RequestMapping(value = "/addFriendPage", method = RequestMethod.POST)
+    public ModelAndView addFriendPage(@RequestParam("id") String id, @RequestParam("name") String name) {
+        ModelAndView view = new ModelAndView("user/addFriend");
         view.addObject("friendId", id);
+        view.addObject("friendName", name);
         view.addObject("userGroups", userService.queryUserGroup());
         return view;
+    }
+
+    @RequestMapping(value = "/addFriend", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject addFriend(@RequestParam("friendId") Integer friendId, @RequestParam("userNote") String userNote,
+                                @RequestParam("userGroup") Integer userGroup, @RequestParam("userCheckMsg") String userCheckMsg) {
+        return userService.saveFriend(friendId, userNote, userGroup, userCheckMsg);
     }
 
 }

@@ -1,41 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="include/includebase"></head>
-<link th:href="@{css/sb-admin.css}" rel="stylesheet"/>
-<script th:inline="javascript">
-    $(function () {
-        // 页面加载完成以后开启websocket的连接
-        var options = new Array();
-        options.sockurl = '/ricky-websocket';
-        options.stompClienturl = '/ricky/topic/greetings';
-        options.login = [[${authentication.name}]];
-        options.success = function(greeting){
-            var r = eval("("+JSON.parse(greeting.body).content+")")
-            alert(r);
-            // $("#greetings").append("<tr><td>" + JSON.parse(greeting.body).content + "</td></tr>");
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2020/9/24
+  Time: 17:49
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<head >
+    <meta charset="UTF-8">
+    <title>Expression Main</title>
+    <link href="../../../static/css/sb-admin.css" rel="stylesheet"/>
+    <style>
+        div#rMenu {
+            position:absolute;
+            visibility:hidden;
+            top:0;
+            background-color: #555;
+            text-align: left;
+            padding: 2px;
         }
-        $.fn.socketConnect(options);
-        // 初始化nav
-        $.fn.bootstrapNav({index:'main',navTitle:'XXXX管理系统'});
-        // 初始化标签页
-        $("#tabContainer").tabs({
-            data: [{
-                id: '99999999',
-                text: '首页',
-                url: "home",
-                closeable: false
-            }],
-            showIndex: 0,
-            loadAll: false
-        })
-    });
-</script>
+        div#rMenu ul li{
+            margin: 2px 0;
+            padding: 0 2px;
+            cursor: pointer;
+            list-style: none outside none;
+            background-color: #DFDFDF;
+        }
+    </style>
+    <script>
+        var zNodes = ${zNodes};
+    </script>
+</head>
 <body >
+<jsp:include page="../include/include.jsp"></jsp:include>
 <div id="wrapper">
-
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -98,7 +96,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>${authentication.name}<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <font th:text="张三"></font> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="#" ><i class="fa fa-fw fa-gear"></i> 修改密码 </a>
@@ -113,14 +111,28 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav" id="menu_tree">
-
+                <div id="friendTree" class="ztree" style="border: 1px solid red"></div>
+                <div style="padding-top: 5px">
+                    <button type="button" name="addPic" onclick="addClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus">添加好友</button>
+                    <%--<button type="button" name="addPic" onclick="infoClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>--%>
+                    <%--<button type="button" name="addPic" onclick="warnClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>--%>
+                    <%--<button type="button" name="addPic" onclick="errorClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>--%>
+                    <%--<button type="button" name="addPic" onclick="successClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>--%>
+                </div>
             </ul>
+            <div id="rMenu"  style="width: 60px;">
+                <ul>
+                    <li id="m_add">新增</li>
+                    <li id="m_rename">修改</li>
+                    <li id="m_del">删除</li>
+                </ul>
+            </div>
         </div>
-        <!-- /.navbar-collapse -->
     </nav>
     <div id="page-wrapper" style="border-radius:5px 5px 0 0;">
         <div id="tabContainer"></div>
     </div>
 </div>
+<script src="../../../static/js/expression/login/index.js"></script>
 </body>
 </html>

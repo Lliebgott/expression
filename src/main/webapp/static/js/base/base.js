@@ -25,7 +25,7 @@ function upload() {
             }
         }
         if (fileList.length + distinctFiles.length > 9) {
-            window.Ewin.alert({message:'最多上传9张图片!'});
+            zeroModal.alert('最多上传9张图片!');
             return;
         }
         if (distinctFiles.length == 0) {
@@ -80,7 +80,7 @@ function initContents(datas) {
             html += '<div id="content_' + i + '" class="pb-10px col-md-12">';
             html += '	<div id="time_' + data.id + '" class="pb-5px green">';
             html += '		<span style="padding-top: 5px">';
-            html += '			<img style="width: 20px" src="../../../static/image/liebgott.jpg" />';
+            html += '			<img style="width: 20px" src="' + data.header_image + '" />';
             html += '			<span><a>' + data.name + '</a>&nbsp;&nbsp;&nbsp;</span>';
             html += '			<span>' + data.create_date + '</span>';
             html += '		</span>';
@@ -152,23 +152,39 @@ function collect(id) {
         },
         dataType: 'json',
         success: function (data) {
-            window.Ewin.alert({message: data.msg});
-            if (data.result) {
-                if ('收藏' == text) {
-                    $('#collect_' + id)[0].innerText = '取消收藏';
-                    $('#collect_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-star");
-                } else {
-                    $('#collect_' + id)[0].innerText = '收藏';
-                    $('#collect_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-star-empty");
+            zeroModal.alert({
+                content: data.msg,
+                height: '200px',
+                top: '0px',
+                okFn: function() {
+                    if (data.result) {
+                        if ('收藏' == text) {
+                            $('#collect_' + id)[0].innerText = '取消收藏';
+                            $('#collect_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-star");
+                        } else {
+                            $('#collect_' + id)[0].innerText = '收藏';
+                            $('#collect_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-star-empty");
+                        }
+                    }
                 }
-            }
+            });
         }
     });
 }
 
 function forward(id) {
-    // window.Ewin.dialog({title:"修改",url:"user/updatePage?id="+id,width:700,height:610});
-    window.Ewin.dialog({title:"转发",url:"user/forwardPage?id=" + id,gridId:"forward",width:700,height:325})
+    zeroModal.show({title: '转发',
+        url: "user/forwardPage?id=" + id,
+        top: '50px',
+        width: '40%',
+        height: '270px',
+        ok: true,
+        cancel: true,
+        okFn: function(opt) {
+            subminForward(opt.unique);
+            return false;
+        }
+    });
 }
 
 function comment(id) {
@@ -185,7 +201,7 @@ function comment(id) {
 function submitComment(id) {
     var comment = $('#content_area_textarea_' + id).val();
     if ('' == comment) {
-        window.Ewin.alert({message:'请输入评论内容!'});
+        zeroModal.alert('请输入评论内容!');
         return;
     }
     $.ajax({
@@ -198,14 +214,22 @@ function submitComment(id) {
         },
         dataType: 'json',
         success: function (data) {
-            window.Ewin.alert({message: data.msg});
-            $('#comment_' + id).empty().append(data.commentnum);
-            var html = '';
-            for (var i = 0; i < data.comments.length; i++) {
-                html += '<li><a>' + data.comments[i].name + '</a>：' + data.comments[i].comment_text + '</li>    ';
-            }
-            $('#comment_area_ul_' + id).empty().append(html);
-            $('#content_area_textarea_' + id).val('');
+            zeroModal.alert({
+                content: data.msg,
+                height: '200px',
+                top: '0px',
+                okFn: function() {
+                    if (data.result) {
+                        $('#comment_' + id).empty().append(data.commentnum);
+                        var html = '';
+                        for (var i = 0; i < data.comments.length; i++) {
+                            html += '<li><a>' + data.comments[i].name + '</a>：' + data.comments[i].comment_text + '</li>    ';
+                        }
+                        $('#comment_area_ul_' + id).empty().append(html);
+                        $('#content_area_textarea_' + id).val('');
+                    }
+                }
+            });
         }
     });
 }
@@ -228,16 +252,22 @@ function thumbs(id) {
         },
         dataType: 'json',
         success: function (data) {
-            window.Ewin.alert({message: data.msg});
-            if (data.result) {
-                if ('点赞' == text) {
-                    $('#thumbs_' + id)[0].innerText = '取消点赞';
-                    $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart");
-                } else {
-                    $('#thumbs_' + id)[0].innerText = '点赞';
-                    $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart-empty");
+            zeroModal.alert({
+                content: data.msg,
+                height: '200px',
+                top: '0px',
+                okFn: function() {
+                    if (data.result) {
+                        if ('点赞' == text) {
+                            $('#thumbs_' + id)[0].innerText = '取消点赞';
+                            $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart");
+                        } else {
+                            $('#thumbs_' + id)[0].innerText = '点赞';
+                            $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart-empty");
+                        }
+                    }
                 }
-            }
+            });
         }
     });
 }

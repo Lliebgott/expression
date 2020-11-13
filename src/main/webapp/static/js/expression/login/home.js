@@ -5,12 +5,15 @@ function addPicture() {
 function publish() {
     var content = $('#content').val();
     if (content == '' && fileList.length == 0) {
-        window.Ewin.alert({message:'请输入心情或选择添加图片!'});
+        zeroModal.alert({
+            content: '请输入心情或选择添加图片!',
+            height: '200px',
+            top: '0px',
+        });
         return;
     }
     var formData = new FormData();
     for (var i = 0, len = fileList.length; i < len; i++) {
-        //console.log(fileList[i]);
         formData.append('files[]', fileList[i]);
     }
     formData.append('content', content);
@@ -22,17 +25,21 @@ function publish() {
         processData: false,
         contentType: false,
         success: function (data) {
-            window.Ewin.alert({message: data.msg});
-            if (data.result) {
-                setTimeout(function() {
-                    $('#content').val('');
-                    $('.file-item').remove();
-                    $('#pic_ul').css("height", "0px");
-                    fileList = [];
-                    // 初始化内容
-                    $('#content_div').empty().append(initContents(data.contents));
-                }, 1000);
-            }
+            zeroModal.alert({
+                content: data.msg,
+                height: '200px',
+                top: '0px',
+                okFn: function() {
+                    if (data.result) {
+                        $('#content').val('');
+                        $('.file-item').remove();
+                        $('#pic_ul').css("height", "0px");
+                        fileList = [];
+                        // 初始化内容
+                        $('#content_div').empty().append(initContents(data.contents));
+                    }
+                }
+            });
         }
     })
 }

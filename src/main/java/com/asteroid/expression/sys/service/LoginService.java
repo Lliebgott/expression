@@ -77,12 +77,20 @@ public class LoginService {
     public JSONArray queryAllContent(Integer id) {
         JSONArray result = new JSONArray();
         String dirPath = yamlProps.getProps().getUploadPath();
+        User loginuser = CustomUserService.user;
+        String headImage = loginuser.getImagePath();
+        User user = new User();
         if (id == 0) {
+            user.setUsername("username");
             id = CustomUserService.user.getId();
+        } else {
+            user.setName("name");
         }
-        List<Map<String, Object>> contents = loginDao.queryAllContent(id);
+        user.setId(id);
+        List<Map<String, Object>> contents = loginDao.queryAllContent(user);
         for (Map<String, Object> content: contents) {
             JSONObject json = JSONObject.fromObject(JsonUtil.map2json(content));
+            json.put("header_image", headImage.replace(headImage.substring(0, 19), ""));
             int contentId = json.getInt("id");
             if (null != json.get("thumb")) {
                 json.put("thumb_class", "glyphicon-heart");

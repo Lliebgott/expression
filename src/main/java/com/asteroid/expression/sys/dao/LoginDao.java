@@ -17,7 +17,7 @@ public interface LoginDao extends GenericDao<User, QueryUser> {
 
     List<User> queryGroupUser(Friend friend);
 
-    List<Map<String, Object>> queryAllContent(int id);
+    List<Map<String, Object>> queryAllContent(User user);
 
     List<Map<String, Object>> queryContentById(int id);
 

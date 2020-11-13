@@ -21,6 +21,6 @@
         </form>
     </div>
 </div>
-<script src="../../static/js/expression/forward.js"></script>
+<script src="../../../static/js/expression/user/forward.js"></script>
 </body>
 </html>
