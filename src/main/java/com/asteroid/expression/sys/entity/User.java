@@ -39,7 +39,7 @@ public class User implements UserDetails {
 
     private Integer status;
 
-    private String sex;
+    private Integer sex;
 
     private String birthStr;
 
@@ -155,11 +155,11 @@ public class User implements UserDetails {
         this.status = status;
     }
 
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -310,6 +310,36 @@ public class User implements UserDetails {
             }
         }
         this.setRoles(roles);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", district='" + district + '\'' +
+                ", address='" + address + '\'' +
+                ", status=" + status +
+                ", sex=" + sex +
+                ", birthStr='" + birthStr + '\'' +
+                ", birthday=" + birthday +
+                ", label='" + label + '\'' +
+                ", imageName='" + imageName + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", lastLoginDate=" + lastLoginDate +
+                ", createDate=" + createDate +
+                ", deleteDate=" + deleteDate +
+                ", roles=" + roles +
+                ", roleArray='" + roleArray + '\'' +
+                ", file0=" + file0 +
+                ", headFile='" + headFile + '\'' +
+                '}';
     }
 
 }
