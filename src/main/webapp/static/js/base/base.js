@@ -25,7 +25,7 @@ function upload() {
             }
         }
         if (fileList.length + distinctFiles.length > 9) {
-            zeroModal.alert('最多上传9张图片!');
+            $.eAlert({content: '最多上传9张图片!', type: 'warning'});
             return;
         }
         if (distinctFiles.length == 0) {
@@ -152,22 +152,18 @@ function collect(id) {
         },
         dataType: 'json',
         success: function (data) {
-            zeroModal.alert({
-                content: data.msg,
-                height: '200px',
-                top: '0px',
-                okFn: function() {
-                    if (data.result) {
-                        if ('收藏' == text) {
-                            $('#collect_' + id)[0].innerText = '取消收藏';
-                            $('#collect_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-star");
-                        } else {
-                            $('#collect_' + id)[0].innerText = '收藏';
-                            $('#collect_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-star-empty");
-                        }
-                    }
+            if (data.result) {
+                $.eAlert({content: data.msg, type: 'info'});
+                if ('收藏' == text) {
+                    $('#collect_' + id)[0].innerText = '取消收藏';
+                    $('#collect_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-star");
+                } else {
+                    $('#collect_' + id)[0].innerText = '收藏';
+                    $('#collect_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-star-empty");
                 }
-            });
+            } else {
+                $.eAlert({content: data.msg, type: 'error'});
+            }
         }
     });
 }
@@ -214,22 +210,18 @@ function submitComment(id) {
         },
         dataType: 'json',
         success: function (data) {
-            zeroModal.alert({
-                content: data.msg,
-                height: '200px',
-                top: '0px',
-                okFn: function() {
-                    if (data.result) {
-                        $('#comment_' + id).empty().append(data.commentnum);
-                        var html = '';
-                        for (var i = 0; i < data.comments.length; i++) {
-                            html += '<li><a>' + data.comments[i].name + '</a>：' + data.comments[i].comment_text + '</li>    ';
-                        }
-                        $('#comment_area_ul_' + id).empty().append(html);
-                        $('#content_area_textarea_' + id).val('');
-                    }
+            if (data.result) {
+                $.eAlert({content: data.msg, type: 'info'});
+                $('#comment_' + id).empty().append(data.commentnum);
+                var html = '';
+                for (var i = 0; i < data.comments.length; i++) {
+                    html += '<li><a>' + data.comments[i].name + '</a>：' + data.comments[i].comment_text + '</li>    ';
                 }
-            });
+                $('#comment_area_ul_' + id).empty().append(html);
+                $('#content_area_textarea_' + id).val('');
+            } else {
+                $.eAlert({content: data.msg, type: 'error'});
+            }
         }
     });
 }
@@ -252,22 +244,18 @@ function thumbs(id) {
         },
         dataType: 'json',
         success: function (data) {
-            zeroModal.alert({
-                content: data.msg,
-                height: '200px',
-                top: '0px',
-                okFn: function() {
-                    if (data.result) {
-                        if ('点赞' == text) {
-                            $('#thumbs_' + id)[0].innerText = '取消点赞';
-                            $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart");
-                        } else {
-                            $('#thumbs_' + id)[0].innerText = '点赞';
-                            $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart-empty");
-                        }
-                    }
+            if (data.result) {
+                $.eAlert({content: data.msg, type: 'info'});
+                if ('点赞' == text) {
+                    $('#thumbs_' + id)[0].innerText = '取消点赞';
+                    $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart");
+                } else {
+                    $('#thumbs_' + id)[0].innerText = '点赞';
+                    $('#thumbs_' + id).removeAttr("class").attr("class", "glyphicon glyphicon-heart-empty");
                 }
-            });
+            } else {
+                $.eAlert({content: data.msg, type: 'error'});
+            }
         }
     });
 }

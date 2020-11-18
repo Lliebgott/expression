@@ -8,18 +8,14 @@ function subminForward(unique) {
         },
         dataType: 'json',
         success: function (data) {
-            zeroModal.alert({
-                content: data.msg,
-                height: '200px',
-                top: '0px',
-                okFn: function() {
-                    if (data.result) {
-                        // 初始化内容
-                        $('#content_div').empty().append(initContents(data.contents));
-                        zeroModal.close(unique);
-                    }
-                }
-            });
+            if (data.result) {
+                $.eAlert({content: data.msg, type: 'info'});
+                // 初始化内容
+                $('#content_div').empty().append(initContents(data.contents));
+                zeroModal.close(unique);
+            } else {
+                $.eAlert({content: data.msg, type: 'error'});
+            }
         }
     });
 }

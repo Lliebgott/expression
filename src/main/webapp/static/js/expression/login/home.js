@@ -5,11 +5,7 @@ function addPicture() {
 function publish() {
     var content = $('#content').val();
     if (content == '' && fileList.length == 0) {
-        zeroModal.alert({
-            content: '请输入心情或选择添加图片!',
-            height: '200px',
-            top: '0px',
-        });
+        $.eAlert({content: '请输入心情或选择添加图片!', type: 'warning'});
         return;
     }
     var formData = new FormData();
@@ -25,21 +21,17 @@ function publish() {
         processData: false,
         contentType: false,
         success: function (data) {
-            zeroModal.alert({
-                content: data.msg,
-                height: '200px',
-                top: '0px',
-                okFn: function() {
-                    if (data.result) {
-                        $('#content').val('');
-                        $('.file-item').remove();
-                        $('#pic_ul').css("height", "0px");
-                        fileList = [];
-                        // 初始化内容
-                        $('#content_div').empty().append(initContents(data.contents));
-                    }
-                }
-            });
+            if (data.result) {
+                $.eAlert({content: data.msg, type: 'info'});
+                $('#content').val('');
+                $('.file-item').remove();
+                $('#pic_ul').css("height", "0px");
+                fileList = [];
+                // 初始化内容
+                $('#content_div').empty().append(initContents(data.contents));
+            } else {
+                $.eAlert({content: data.msg, type: 'error'});
+            }
         }
     })
 }

@@ -19,7 +19,7 @@
 <link href="../../../static/css/zTreeStyle/metro.css" rel="stylesheet">
 <link href="../../../static/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 <link href="../../../static/css/expression/home.css" rel="stylesheet"/>
-<%--<link href="../../../static/css/eAlert/eAlert.css" rel="stylesheet"/>--%>
+<link href="../../../static/css/eAlert/eAlert.css" rel="stylesheet"/>
 <%--<link href="../../../static/css/eAlert/iconfont.css" rel="stylesheet"/>--%>
 <link href="../../../static/css/zeroModal/zeroModal.css" rel="stylesheet"/>
 
@@ -49,7 +49,7 @@
 <script src="../../../static/js/bootstrap/checkbox/checkbox.js"></script>
 <script src="../../../static/js/ajaxutil/ajaxUtil.js"></script>
 <script src="../../../static/js/base/base.js"></script>
-<%--<script src="../../../static/js/alert/eAlert.js"></script>--%>
+<script src="../../../static/js/alert/eAlert.js"></script>
 <script src="../../../static/js/zeroModal/mustache.js"></script>
 <script src="../../../static/js/zeroModal/zeroModal.js"></script>
 

@@ -12,7 +12,7 @@ function searchClick(unique) {
             dataType: 'json',
             success: function (data) {
                 if (data.length == 0) {
-
+                    $.eAlert({content: '尚未查询到符合条件的用户!', type: 'warning'});
                 } else {
                     var html = "";
                     for (var i = 0; i < data.length; i++) {
@@ -32,12 +32,12 @@ function searchClick(unique) {
                         html += '	</div>';
                         html += '</div>';
                     }
-                    $('#searchUserDiv').empty().append(html)
+                    $('#searchUserDiv').empty().append(html);
                 }
             }
         });
     } else {
-        zeroModal.alert({content: "请输入姓名/账号！", height: '200px', top: '0px',})
+        $.eAlert({content: '请输入姓名/账号!', type: 'warning'});
     }
 }
 

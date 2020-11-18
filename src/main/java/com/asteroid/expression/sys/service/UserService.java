@@ -139,8 +139,6 @@ public class UserService extends GenericService<User, QueryUser> {
 
     @Transactional
     public JSONObject publish(String content, MultipartFile files[]) {
-        JSONObject result = new JSONObject();
-        result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
         Content model = new Content();
         // 设置user_id
         model.setUser_id(CustomUserService.user.getId());
@@ -152,11 +150,13 @@ public class UserService extends GenericService<User, QueryUser> {
         for (MultipartFile file: files) {
             upload(model.getId(), userName, file, file.getOriginalFilename(), "image");
         }
+        JSONObject result = new JSONObject();
         if (n > 0) {
             result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
             result.put("contents", loginService.queryAllContent(0));
             result.put("msg", "发布成功！");
         } else {
+            result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
             result.put("msg", "发布失败！");
         }
         return result;
@@ -194,8 +194,6 @@ public class UserService extends GenericService<User, QueryUser> {
 
     @Transactional
     public JSONObject collect(Integer contentId, Integer collectId, Integer friendId, boolean state) {
-        JSONObject result = new JSONObject();
-        result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
         CollectContent model = new CollectContent();
         model.setUser_id(CustomUserService.user.getId());
         model.setFriend_id(friendId);
@@ -208,10 +206,12 @@ public class UserService extends GenericService<User, QueryUser> {
         } else {
             n = userDao.cancelCollect(model);
         }
+        JSONObject result = new JSONObject();
         if (n > 0) {
             result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
             result.put("msg", state ? "收藏成功！": "取消收藏成功！");
         } else {
+            result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
             result.put("msg", state ? "收藏失败！": "取消收藏失败！");
         }
         return result;
@@ -219,8 +219,6 @@ public class UserService extends GenericService<User, QueryUser> {
 
     @Transactional
     public JSONObject forward(Integer contentId, String contentText) {
-        JSONObject result = new JSONObject();
-        result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
         Content model = new Content();
         model.setUser_id(CustomUserService.user.getId());
         model.setContent(contentText);
@@ -228,11 +226,13 @@ public class UserService extends GenericService<User, QueryUser> {
         model.setCreate_date(new Date());
         model.setStatus(StatusEnum.EFFECTIVE.getId());
         int n = userDao.publish(model);
+        JSONObject result = new JSONObject();
         if (n > 0) {
             result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
             result.put("contents", loginService.queryAllContent(model.getUser_id()));
             result.put("msg", "转发成功！");
         } else {
+            result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
             result.put("msg", "转发失败！");
         }
         return result;
@@ -240,8 +240,6 @@ public class UserService extends GenericService<User, QueryUser> {
 
     @Transactional
     public JSONObject comment(Integer contentId, Integer friendId, String coment) {
-        JSONObject result = new JSONObject();
-        result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
         Comment comment = new Comment();
         comment.setUser_id(CustomUserService.user.getId());
         comment.setComment_text(coment);
@@ -249,11 +247,13 @@ public class UserService extends GenericService<User, QueryUser> {
         comment.setContent_id(contentId);
         comment.setCreate_date(new Date());
         int n = userDao.saveComment(comment);
+        JSONObject result = new JSONObject();
         if (n > 0) {
             result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
             result.putAll(loginService.getComment(contentId));
             result.put("msg", "评论成功！");
         } else {
+            result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
             result.put("msg", "评论失败！");
         }
         return result;
@@ -261,8 +261,6 @@ public class UserService extends GenericService<User, QueryUser> {
 
     @Transactional
     public JSONObject thumb(Integer contentId, Integer friendId, boolean state) {
-        JSONObject result = new JSONObject();
-        result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
         Thumb model = new Thumb();
         model.setUser_id(CustomUserService.user.getId());
         model.setFriend_id(friendId);
@@ -274,10 +272,12 @@ public class UserService extends GenericService<User, QueryUser> {
         } else {
             n = userDao.cancelThumb(model);
         }
+        JSONObject result = new JSONObject();
         if (n > 0) {
             result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
             result.put("msg", state ? "点赞成功！": "取消点赞成功！");
         } else {
+            result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
             result.put("msg", state ? "点赞失败！": "取消点赞失败！");
         }
         return result;
@@ -315,7 +315,6 @@ public class UserService extends GenericService<User, QueryUser> {
 
     @Transactional
     public JSONObject saveFriend(Integer friendId, String userNote, Integer userGroup, String userCheckMsg) {
-        JSONObject result = new JSONObject();
         Friend friend = new Friend();
         friend.setUser_id(CustomUserService.user.getId());
         friend.setFriend_id(friendId);
@@ -330,10 +329,12 @@ public class UserService extends GenericService<User, QueryUser> {
         friend.setStatus(StatusEnum.EFFECTIVE.getId());
         friend.setCreate_date(new Date());
         userDao.saveFriend(friend);
+        JSONObject result = new JSONObject();
         if (n > 0) {
             result.put(SystemStaticConst.RESULT, SystemStaticConst.SUCCESS);
             result.put("msg", "添加成功！");
         } else {
+            result.put(SystemStaticConst.RESULT, SystemStaticConst.FAIL);
             result.put("msg", "添加失败！");
         }
         return result;

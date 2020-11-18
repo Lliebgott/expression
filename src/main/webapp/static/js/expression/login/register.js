@@ -204,14 +204,16 @@ $(function () {
             processData: false,
             contentType: false,
             success: function (data) {
-                zeroModal.alert({
-                    content: data.msg,
-                    okFn: function() {
-                        if (data.result) {
+                if (data.result) {
+                    zeroModal.alert({
+                        content: data.msg,
+                        okFn: function() {
                             $(window.location).attr('href', '/login')
                         }
-                    }
-                });
+                    });
+                } else {
+                    $.eAlert({content: data.msg, type: 'error'});
+                }
             }
         })
     });

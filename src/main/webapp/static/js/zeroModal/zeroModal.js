@@ -764,7 +764,7 @@
     function _buildAlertInfo(opt) {
         // 初始化
         if (typeof opt === 'undefined' || typeof opt.cancelTitle === 'undefined') {
-            opt.cancelTitle = '取消';
+            opt.cancelTitle = '关闭';
         }
         if (typeof opt.width === 'undefined') {
             opt.width = '350px';

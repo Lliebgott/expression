@@ -113,6 +113,22 @@ function _alert2() {
     });
 }
 
+function _alert3() {
+    $.eAlert({content: "提示内容info", type: 'info'});
+}
+
+function _alert4() {
+    $.eAlert({content: "提示内容warn", type: 'warning'});
+}
+
+function _alert5() {
+    $.eAlert({content: "提示内容error", type: 'error'});
+}
+
+function _alert6() {
+    $.eAlert({content: "提示内容success", type: 'success'});
+}
+
 function _confirm1() {
     zeroModal.confirm("确定提交审核吗？", function() {
         alert('ok');

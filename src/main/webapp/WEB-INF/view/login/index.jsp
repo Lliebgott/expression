@@ -114,10 +114,6 @@
                 <div id="friendTree" class="ztree" style="border: 1px solid red"></div>
                 <div style="padding-top: 5px">
                     <button type="button" name="addPic" onclick="addClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus">添加好友</button>
-                    <%--<button type="button" name="addPic" onclick="infoClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>--%>
-                    <%--<button type="button" name="addPic" onclick="warnClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>--%>
-                    <%--<button type="button" name="addPic" onclick="errorClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>--%>
-                    <%--<button type="button" name="addPic" onclick="successClick()" title="添加好友" class="btn btn-primary glyphicon glyphicon-plus"></button>--%>
                 </div>
             </ul>
             <div id="rMenu"  style="width: 60px;">

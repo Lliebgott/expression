@@ -13,25 +13,21 @@ function addFriend() {
         },
         dataType: 'json',
         success: function (data) {
-            debugger
-            zeroModal.alert({
-                content: data.msg,
-                height: '200px',
-                top: '0px',
-                okFn: function() {
-                    var ztree = $.fn.zTree.getZTreeObj("friendTree");
-                    debugger
-                    var friendLists = ztree.getNodes();
-                    for (var i = 0; i < friendLists.length; i++) {
-                        var node = friendLists[i];
-                        if (node.id == userGroup) {
-                            debugger
-                            ztree.addNodes(node, {id: friendId, name: friendName, icon: "../../../static/image/user.png"})
-                        }
+            if (data.result) {
+                $.eAlert({content: data.msg, type: 'info'});
+                var zTree = $.fn.zTree.getZTreeObj("friendTree");
+                debugger
+                var friendLists = zTree.getNodes();
+                for (var i = 0; i < friendLists.length; i++) {
+                    var node = friendLists[i];
+                    if (node.id == userGroup) {
+                        ztree.addNodes(node, {id: friendId, name: friendName, icon: "../../../static/image/user.png"})
                     }
-                    zeroModal.closeAll()
                 }
-            });
+                zeroModal.closeAll()
+            } else {
+                $.eAlert({content: data.msg, type: 'error'});
+            }
         }
     });
 }

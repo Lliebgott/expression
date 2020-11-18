@@ -194,6 +194,10 @@
     <ol class="rounded-list">
         <li><a href="javascript:_alert1()">提示框1 (alert)</a></li>
         <li><a href="javascript:_alert2()">提示框2 (alert)</a></li>
+        <li><a href="javascript:_alert3()">提示框3 (alert)</a></li>
+        <li><a href="javascript:_alert4()">提示框4 (alert)</a></li>
+        <li><a href="javascript:_alert5()">提示框5 (alert)</a></li>
+        <li><a href="javascript:_alert6()">提示框6 (alert)</a></li>
         <li> <a href="javascript:_confirm1()">确认框1 (confirm)</a></li>
         <li> <a href="javascript:_confirm2()">确认框2 (confirm)</a></li>
         <li> <a href="javascript:_error()">失败提示框 (error)</a></li>
